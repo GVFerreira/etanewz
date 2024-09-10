@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "eta-canadense-398617",
+  "private_key_id": "a3be1f69af242cdb29a79ef2f3de57ebc2d9d2f6",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDEjsV18s6SIk/K\nbioRGAUYW9pKMiCVjlgVYS7OkDO28VepBUpaQXs2R85LP+TzxjZpEwM3bHVAuKt6\nFoq2MxcyKwMbFJkkoN/MgACZ9QGDEvgD+zygXRQ/WiunSbArdAlUzoRra3shBLrH\nNmkw6ACT89evzaGNhmQTBumwFTEc4FmmGA45pH9TCdE1KnAoVDaeFmtCdraQ+lPr\nWTJNnI/ktk7xG3nZ1BM9rCbZbXt1i4ILTj14mdrIREy4ZoNMOXKB9cUPXsF3Tnh0\nTvRq/B0GALakQiquZC5+AbQsrM5gsvkpnqiqmf+hrjvINZG3vFI1MTBNZjFxClfa\nJbv0K8gdAgMBAAECggEAD0oMjnEvPYTEiiC2Z8ZjikW5N1fdp8rlWFX+SxXcDL+K\nXw/8Fmszh1rGIp2H7kJqM+AruhSKRlkj1YcjwRDWUN7k141rOcMqkjPlJOFyMNzs\nqxQ23ttLdBlMF5YoYvW16BsSuwkmqcA+Ox+LYFq1LAA/gPuEAbs4O5aoRNWEXXq4\nkM7iKeWq9rl0ZmDo20lp3N+ww/UY7GFifD9ibUUuDj25auGoTuQizZ2JNmtP4fQU\nkiP6GRAZO2zHi+HDSIAj3BczchkKq2ITTZpn3cVdbirMAJnG84z1HqX7LYbXUTzJ\n96Ndfwp6j2KZmUV46VKmL2OB3N8qbzMfgsrjr1PRrQKBgQD6Bu1XunKeA2Gc5Sn0\n+Y2Mt2nH+o0ysEu1loGdN050OTZL3dVWDDMgD/cEr1XTw41Xa1sIdi4DaGzsEHZY\nCRj1ttEm4m4eKcwS3UsHfTe5FYVqj9MDfmtsTwZxp5Vw8nxAQ4wBj+IcaaoSX/Fy\nZehc0uqCnbCPE4lanwh1VjKv9wKBgQDJQNhtcOlNaQawE9XlD95WvwPGDy7cnlld\nlDvF5/Qr/ViO2d8QPbFBgrgdb6hlxrRZqF6AF9BuxlCnpAaWg5r14xV0j2cNj/Cu\nQtW7UypNXWmfQCUN3wkLrpHU1sOzMs+Vtv359Aq3d0XEWwZvjDkfLFZslcu0YpaJ\nfkkcrzZriwKBgQCcf0t+FvD5IMqvhu1NLgrAomkuyBArQxgQcEVu35hWvRzUPeTz\nuC0kC3olT44cP5Gvvz26vSYt8eYDmIZKsl8SJb0iZqZgcO8Qe70j0efYDLV2rtF4\npV+d6pTw/OFYUh8dpmny7FmuSSEv4Sfi4BCiUU6CNSu3UpYtx89mim6tnwKBgC4T\nJnmHzCHo1ZsiL2oNw/1gJeEGQNhJeHQwJ68bd49KpSevQZ5aQWaaIsS6d3c1kryk\nC16QFSwHQxfeOZPj9Wot3w+cdR9pwNRkgMIuPBUSOcg3y0PtuAhwovpzYMJ584R3\nLJY5BOsT52kY3dRT6g/0+qRJdyWJHKXFv79NbcwZAoGAXVZc+lCczH35cuGEyswh\n/18r5EjKRuhMt9WtHtTghbynfMIvf8z6jj5XvC2sy9UWH3YPUrgz8q81QAKZn9ii\n6MD6G3E93FZRnJi0FPnEyyU/kYI2kKuK2LNfOlVUIbah4PGQ94RwbM7GObcJ3IwK\nOfoYk7bh9fCaaqyE0SJHQ9I=\n-----END PRIVATE KEY-----\n",
+  "client_email": "visionapi@eta-canadense-398617.iam.gserviceaccount.com",
+  "client_id": "115189821231752937486",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/visionapi%40eta-canadense-398617.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

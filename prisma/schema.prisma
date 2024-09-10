@@ -1,0 +1,86 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String @id @default(uuid())
+  name     String
+  email    String @unique
+  password String
+
+  @@map("users")
+}
+
+model Visa {
+  id                  String   @id @default(uuid())
+  passportNationality String   @map("passport_nationality")
+  passportIssuer      String   @map("passport_issuer")
+  passportNumber      String   @map("passport_number")
+  passportExpiration  DateTime @map("passport_expiration")
+  name                String
+  surname             String
+  hadOtherName        Boolean  @map("had_other_name")
+  otherName           String?  @map("other_name")
+  gender              String
+  dateBirth           DateTime @map("date_birth")
+  cityBirth           String   @map("city_birth")
+  countryBirth        String   @map("country_birth")
+  nationalDocument    String?  @map("national_document")
+  email               String
+  medicalTreatment    Boolean  @map("medical_treatment")
+  beenDeported        Boolean  @map("been_deported")
+  forbiddenEnter      Boolean  @map("forbidden_enter")
+  beenConvicted       Boolean  @map("been_convicted")
+  codeETA             String   @unique @map("code_eta")
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  payments VisaPayment[]
+
+  @@map("visas")
+}
+
+model Payment {
+  id                String @id @default(uuid())
+  idCheckout        String @map("id_checkout")
+  idClient          Int    @map("id_client")
+  idOrder           String @map("id_order")
+  transactionAmount Float  @map("transaction_amount")
+  transactionId     String @unique @map("transaction_id")
+  docType           String @default("CPF")
+  docNumber         String @map("doc_number")
+  status            String
+  statusDetails     String @map("status_details")
+  paymentTypeId     String @map("payment_type_id")
+  installments      Int    @map("installments")
+  qrCode            String @map("qr_code") @db.Text
+  qrCodeBase64      String @map("qr_code_base_64") @db.Text
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  visas VisaPayment[]
+
+  @@map("payments")
+}
+
+model VisaPayment {
+  id        String @id @default(uuid())
+  paymentId String
+  visasId   String
+
+  payment Payment @relation(fields: [paymentId], references: [id])
+  visas   Visa    @relation(fields: [visasId], references: [id])
+
+  @@map("visa_payment")
+}
