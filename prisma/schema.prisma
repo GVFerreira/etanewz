@@ -9,8 +9,9 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider = "sqlite"
+  url      = "file:./dev.db"
+  // url      = env("DATABASE_URL")
 }
 
 model User {
@@ -23,28 +24,33 @@ model User {
 }
 
 model Visa {
-  id                  String   @id @default(uuid())
-  passportNationality String   @map("passport_nationality")
-  passportIssuer      String   @map("passport_issuer")
-  passportNumber      String   @map("passport_number")
-  passportExpiration  DateTime @map("passport_expiration")
-  name                String
-  surname             String
-  hadOtherName        Boolean  @map("had_other_name")
-  otherName           String?  @map("other_name")
-  gender              String
-  dateBirth           DateTime @map("date_birth")
-  cityBirth           String   @map("city_birth")
-  countryBirth        String   @map("country_birth")
-  nationalDocument    String?  @map("national_document")
-  email               String
-  medicalTreatment    Boolean  @map("medical_treatment")
-  beenDeported        Boolean  @map("been_deported")
-  forbiddenEnter      Boolean  @map("forbidden_enter")
-  beenConvicted       Boolean  @map("been_convicted")
-  codeETA             String   @unique @map("code_eta")
-
-  createdAt DateTime @default(now()) @map("created_at")
+  id                      String   @id @default(uuid())
+  passportNationality     String   @map("passport_nationality")
+  passportIssuer          String   @map("passport_issuer")
+  passportNumber          String   @map("passport_number")
+  passportExpiration      DateTime @map("passport_expiration")
+  name                    String
+  surname                 String
+  hadOtherName            Boolean  @map("had_other_name")
+  otherName               String?  @map("other_name")
+  gender                  String
+  dateBirth               DateTime @map("date_birth")
+  cityBirth               String   @map("city_birth")
+  countryBirth            String   @map("country_birth")
+  nationalDocument        String?  @map("national_document")
+  email                   String
+  telephone               String
+  returnToAustralia       Boolean  @map("return_to_australia")
+  stayInNZ                Boolean  @map("stay_in_nz")
+  medicalTreatment        Boolean  @map("medical_treatment")
+  beenDeported            Boolean  @map("been_deported")
+  forbiddenEnter          Boolean  @map("forbidden_enter")
+  beenConvicted           Boolean  @map("been_convicted")
+  convictedMoreThanFive   Boolean  @map("convicted_more_than_five")
+  convictedMoreThanTwelve Boolean  @map("convicted_more_than_twelve")
+  codeETA                 String   @unique @map("code_eta")
+  imagePath               String?
+  createdAt               DateTime @default(now()) @map("created_at")
 
   payments VisaPayment[]
 
@@ -52,20 +58,17 @@ model Visa {
 }
 
 model Payment {
-  id                String @id @default(uuid())
-  idCheckout        String @map("id_checkout")
-  idClient          Int    @map("id_client")
-  idOrder           String @map("id_order")
-  transactionAmount Float  @map("transaction_amount")
-  transactionId     String @unique @map("transaction_id")
-  docType           String @default("CPF")
-  docNumber         String @map("doc_number")
+  id                String  @id @default(uuid())
+  idClient          String  @map("id_client")
+  idOrder           String  @map("id_order")
+  transactionAmount Float   @map("transaction_amount")
+  transactionId     String  @map("transaction_id")
+  docType           String  @default("CPF")
+  docNumber         String  @map("doc_number")
   status            String
-  statusDetails     String @map("status_details")
-  paymentTypeId     String @map("payment_type_id")
-  installments      Int    @map("installments")
-  qrCode            String @map("qr_code") @db.Text
-  qrCodeBase64      String @map("qr_code_base_64") @db.Text
+  paymentTypeId     String  @map("payment_type_id")
+  qrCode            String? @map("qr_code") //@db.Text
+  qrCodeBase64      String? @map("qr_code_base_64") //@db.Text
 
   createdAt DateTime @default(now()) @map("created_at")
 

@@ -14,10 +14,14 @@ export async function createVisa(data: any) {
         passportExpiration: new Date(data.passportExpiration),
         hadOtherName: Boolean(data.hadOtherName),
         dateBirth: new Date(data.dateBirth),
+        returnToAustralia: Boolean(data.returnToAustralia),
+        stayInNZ: Boolean(data.stayInNZ),
         medicalTreatment: Boolean(data.medicalTreatment),
         beenDeported: Boolean(data.beenDeported),
         forbiddenEnter: Boolean(data.forbiddenEnter),
         beenConvicted: Boolean(data.beenConvicted),
+        convictedMoreThanFive: Boolean(data.convictedMoreThanFive),
+        convictedMoreThanTwelve: Boolean(data.convictedMoreThanTwelve),
         codeETA
       }
     })

@@ -5,20 +5,16 @@ import AccordionItem from './accordion-item'
 
 const accordionData = [
   {
-    question: "O que é uma eTA?",
-    answer: "A eTA (Autorização Eletrônica de Viagem) é um documento eletrônico necessário para viajar para certos países que exigem autorização prévia. Geralmente é aplicável a visitantes que viajam a lazer, turismo ou negócios por um curto período de tempo."
+    question: "Por que eu preciso desse serviço?",
+    answer: "Porque o nosso site disponibiliza um formulário acessível e de fácil preenchimento, em português brasileiro. Você navegará de forma intuitiva e encontrará, em um só lugar, todas as informações claras sobre requisitos e documentação necessários para a aplicação da sua NZeTA. Em 99% dos casos, nossos clientes têm a sua autorização emitida em menos de 12 horas. Além disso, garantimos a segurança dos seus dados pessoais e informações financeiras."
   },
   {
-    question: "Quais países exigem uma eTA?",
-    answer: "Países como Nova Zelândia e o Canadá são exemplos de destinos que requerem uma eTA para entrada de visitantes de determinadas nacionalidades. Recomendamos verificar os requisitos específicos do país de destino antes de viajar."
+    question: "Meus dados (nome, documentos, e-mail e cartão de crédito) estão seguros?",
+    answer: "Sim, seus dados estão 100% seguros. Todo o processamento de nossos pagamentos é efetuado pela Appmax, em uma transação criptografada. Nenhuma informação referente ao seu cartão de crédito é mantida em nosso banco de dados. Além disso, somos totalmente contra spam e quaisquer práticas de violação de privacidade."
   },
   {
-    question: "Quem precisa de uma eTA?",
-    answer: "A necessidade de uma eTA varia de acordo com a nacionalidade do viajante e o país de destino. Geralmente, cidadãos de países que têm acordos de isenção de visto com o país de destino podem precisar de uma eTA. Consulte as regulamentações locais para obter informações precisas sobre quem precisa de uma eTA."
-  },
-  {
-    question: "Como solicito uma eTA?",
-    answer: "O processo de solicitação de eTA pode ser feito por meio de um dos sites de emissão de eTA da eTA Hub . Preencha o formulário online, pague a respectiva taxa e receba a resposta do governo."
+    question: "Quais formas de pagamento são aceitas?",
+    answer: "Nossos pagamentos são processados através da Appmax, e você pode efetuar o pagamento utilizando cartão de crédito e PIX."
   }
 ]
 

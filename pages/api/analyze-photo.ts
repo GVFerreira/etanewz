@@ -72,7 +72,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // Validação de objetos
     if (!objects.some(object => 
-      object.name === 'Person' && object.score != null && object.score >= 0.75
+      object.name === 'Person' && object.score != null && object.score >= 0.50
     )) {
       errors.push('Não temos 100% de certeza que há uma pessoa nesta imagem.')
     }

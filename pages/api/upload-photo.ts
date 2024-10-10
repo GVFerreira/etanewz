@@ -10,7 +10,7 @@ export const config = {
   },
 }
 
-const uploadDir = path.join(process.cwd(), 'public/uploads')
+const uploadDir = path.join(process.cwd(), 'public', 'uploads')
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
@@ -39,7 +39,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
       // Extraia o caminho da imagem carregada
       const filePath = file.filepath
-      const imagePath = filePath.replace(process.cwd() + '/public', '')
+      const imagePath = path.relative(process.cwd(), filePath) // Atualizado para gerar o caminho correto
 
       // Retornar sucesso com o caminho da imagem
       res.status(200).json({ message: 'Upload bem-sucedido!', valid: true, imagePath })
