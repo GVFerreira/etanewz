@@ -218,8 +218,11 @@ function BankTransferFields() {
       const responsePayment = await payment.json()
 
       if (payment.status === 201) {
+        localStorage.setItem('qrCode', responsePayment.qrCode)
+        localStorage.setItem('qrCodeBase64', responsePayment.qrCodeBase64)
+        localStorage.setItem('paymentId', responsePayment.id)
         // Redirecionar para a página de checkout/pix passando os dados como query parameters
-        router.push(`/aplicaco/checkout/pix?id=${responsePayment.id}&qrCode=${responsePayment.qrCode}&qrCodeBase64=${responsePayment.qrCodeBase64}`)
+        router.push(`/aplicacao/checkout/pix`)
       } else if ( payment.status === 200) {
         console.log("Não foi possível redirecionar a página de QR Code")
         toast({

@@ -118,6 +118,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             qrCodeBase64: pixPayment.data.pix_qrcode,
           }, visas)
 
+          console.log(payment)
+          console.log(pixPayment)
+
           return res.status(201).json({
             id: payment?.id,
             qrCode: pixPayment.data.pix_emv,

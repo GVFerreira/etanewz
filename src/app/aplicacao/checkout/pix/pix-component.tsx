@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation"
 import { getPaymentPix } from "../action"
 import Image from "next/image"
 
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { toast } from "@/components/ui/use-toast"
@@ -15,15 +15,24 @@ import HeaderCKO from "@/app/components/header-cko"
 import CopyInput from "./copy-button"
 
 export default function Pix() {
-  const searchParams = useSearchParams()
-  
-  const qrCode = searchParams?.get('qrCode') as string
-  const qrCodeBase64 = searchParams?.get('qrCodeBase64') as string
-  const id = searchParams?.get('id') as string
-
+  const [id, setId] = useState("")
+  const [qrCode, setQrCode] = useState("")
+  const [qrCodeBase64, setQrCodeBase64] = useState("")
   const router = useRouter()
 
   useEffect(() => {
+    const qrCode = localStorage.getItem('qrCode') as string
+    const qrCodeBase64 = localStorage.getItem('qrCodeBase64') as string
+    const id = localStorage.getItem('id') as string
+
+    setId(id)
+    setQrCode(qrCode)
+    setQrCodeBase64(qrCodeBase64)
+  }, [])
+
+  useEffect(() => {
+    
+
     const intervalId = setInterval(async () => {
       try {
         // Chama a função que verifica o status do pagamento
