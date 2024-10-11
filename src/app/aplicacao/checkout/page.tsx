@@ -219,7 +219,7 @@ function BankTransferFields() {
 
       if (payment.status === 201) {
         // Redirecionar para a página de checkout/pix passando os dados como query parameters
-        router.push(`/checkout/pix?qrCode=${responsePayment.qrCode}&qrCodeBase64=${responsePayment.qrCodeBase64}`)
+        router.push(`/aplicaco/checkout/pix?id=${responsePayment.id}&qrCode=${responsePayment.qrCode}&qrCodeBase64=${responsePayment.qrCodeBase64}`)
       } else if ( payment.status === 200) {
         console.log("Não foi possível redirecionar a página de QR Code")
         toast({

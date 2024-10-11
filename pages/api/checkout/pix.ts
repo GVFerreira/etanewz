@@ -24,7 +24,7 @@ async function createPayment(data: any, visaIds: string[]) {
     return payment
   } catch (e) {
     console.log(e)
-    return { status: 400, message: e }
+    return null
   }
 }
 
@@ -118,7 +118,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             qrCodeBase64: pixPayment.data.pix_qrcode,
           }, visas)
 
-          return res.status(201).json(payment)
+          return res.status(201).json({
+            id: payment?.id,
+            qrCode: pixPayment.data.pix_emv,
+            qrCodeBase64: pixPayment.data.pix_qrcode
+          })
         } catch(e) {
           console.log(e)
           return res.status(500).json(e)
