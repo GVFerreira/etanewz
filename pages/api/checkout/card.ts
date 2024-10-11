@@ -78,11 +78,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const userIp = reqIp ? reqIp.split(',')[0] : 'IP não disponível'
 
   try {
-    const newClient = await fetch(`https://homolog.sandboxappmax.com.br/api/v3/customer`, {
+    const newClient = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL_APPMAX}/customer`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-          "access-token": "45E9B0B3-ABBCFC87-FC1FC616-56706B71",
+          "access-token": process.env.APPMAX_ACCESS_TOKEN,
           "firstname": name,
           "lastname": surname,
           "email": email,
@@ -93,11 +93,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const client = await newClient.json()
 
     if(client.success) {
-      const newOrder = await fetch(`https://homolog.sandboxappmax.com.br/api/v3/order`, {
+      const newOrder = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL_APPMAX}/order`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          "access-token": "45E9B0B3-ABBCFC87-FC1FC616-56706B71", //TESTE
+          "access-token": process.env.APPMAX_ACCESS_TOKEN,
           "products": [{
             "sku": "835103",
             "name": "Assessoria - eTA Nova Zelândia",
@@ -110,11 +110,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       })
       const order = await newOrder.json()
   
-      const newPayment = await fetch(`https://homolog.sandboxappmax.com.br/api/v3/payment/credit-card`, {
+      const newPayment = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL_APPMAX}/payment/credit-card`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          "access-token": "45E9B0B3-ABBCFC87-FC1FC616-56706B71", //TESTE
+          "access-token": process.env.APPMAX_ACCESS_TOKEN,
           "cart": { "order_id": order.data.id },
           "customer": { "customer_id": order.data.customer_id },
           "payment": {

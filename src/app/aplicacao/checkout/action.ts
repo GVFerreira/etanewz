@@ -22,3 +22,26 @@ export async function getCheckoutVisas(visaId: string[]) {
 
   if (visas) return visas
 }
+
+export async function getInstallmentsAppmax(quantity: number) {
+  try {
+    const reqInstallments = await fetch('https://homolog.sandboxappmax.com.br/api/v3/payment/installments', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        "access-token": process.env.APPMAX_ACCESS_TOKEN,
+        "installments": 6,
+        "total": quantity * 297,
+        "format": 2 
+      })
+    })
+
+    const response = await reqInstallments.json()
+
+    return response
+  } catch (e) {
+    console.log(e)
+  }
+}

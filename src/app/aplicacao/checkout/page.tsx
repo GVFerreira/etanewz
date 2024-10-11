@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button"
 
 import HeaderCKO from "@/app/components/header-cko"
 import FooterCKO from "@/app/components/footer-cko"
-import { getCheckoutVisas } from "./action"
+import { getCheckoutVisas, getInstallmentsAppmax } from "./action"
 import { useRouter } from "next/navigation"
 import { useForm, SubmitHandler } from "react-hook-form"
 import dynamic from 'next/dynamic'
@@ -71,19 +71,8 @@ function CardPaymentFields() {
     // fetch para consulta das parcelas
     const fetchData = async () => {
       try {
-        const reqInstallments = await fetch('https://homolog.sandboxappmax.com.br/api/v3/payment/installments', {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            "access-token": "45E9B0B3-ABBCFC87-FC1FC616-56706B71", //TESTE
-            "installments": 6,
-            "total": visaIds?.length * 297,
-            "format": 2 
-          })
-        })
-        const response = await reqInstallments.json()
+        const response = await getInstallmentsAppmax(visaIds.length)
+
         const installmentsData = Object.entries(response.data).map(([key, value]) => ({
           // o valor é a descrição da parcela
           label: value as string, 
@@ -301,7 +290,7 @@ export default function Checkout() {
   return (
     <div className="flex flex-col min-h-screen">
       <HeaderCKO />
-      <main style={{flex: "1 1 0"}} className="flex justify-center items-center p-4 md:p-0">
+      <main style={{flex: "1 1 0"}} className="flex justify-center items-center p-4 md:py-16">
         <Card className="w-full max-w-3xl mx-auto">
           <CardHeader>
             <CardTitle className="text-3xl text-center">Checkout</CardTitle>
