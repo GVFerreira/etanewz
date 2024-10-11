@@ -38,6 +38,8 @@ export default function Photo() {
         videoRef.current.srcObject = stream
         videoRef.current.onplaying = () => setIsVideoPlaying(true)
         await videoRef.current.play()
+        setErrors([])
+
       }
     } catch (error) {
       console.error('Erro ao acessar a câmera:', error)
@@ -114,6 +116,7 @@ export default function Photo() {
                 const visaId = localStorage.getItem("visaId")
                 if (visaId) await updateImage(visaId, uploadData.imagePath)
                 router.push('/aplicacao/confirmar')
+                router.refresh
               } catch (e: any) {
 
               }

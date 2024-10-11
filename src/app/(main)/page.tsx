@@ -1,3 +1,5 @@
+'use client'
+
 import { AirplaneTilt, Textbox, Wallet } from "@phosphor-icons/react/dist/ssr"
 import Link from "next/link"
 
@@ -5,8 +7,13 @@ import Accordion from "../components/accordion"
 import Header from "@/app/components/header"
 import Footer from "@/app/components/footer"
 import Countries from "../components/countries"
+import { useEffect } from 'react'
 
 export default function Home() {
+  useEffect(() => {
+    localStorage.clear()
+  }, [])
+
   return (
     <>
       <Header />

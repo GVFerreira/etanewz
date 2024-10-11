@@ -14,7 +14,7 @@ function rgbToLuminance(r: number, g: number, b: number): number {
 
 function isColorLight(r: number, g: number, b: number): boolean {
   const luminance = rgbToLuminance(r, g, b)
-  return luminance > 0.3 // Limiar para determinar se a cor é clara
+  return luminance > 0.2 // Limiar para determinar se a cor é clara
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -49,17 +49,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     faces.forEach(face => {
       const { rollAngle, tiltAngle, panAngle, detectionConfidence } = face
-      if (detectionConfidence == null || detectionConfidence < 0.80) {
-        errors.push('A confiança na detecção da face deve ser superior a 90%.')
+      if (detectionConfidence == null || detectionConfidence < 0.70) {
+        errors.push('A confiança na detecção da face deve ser superior a 70%.')
       }
-      if (rollAngle == null || rollAngle < -10 || rollAngle > 10) {
-        errors.push('O ângulo de rotação da face deve estar entre -3° e 3°. ')
+      if (rollAngle == null || rollAngle < -15 || rollAngle > 15) {
+        errors.push('O ângulo de rotação da face deve estar entre -15° e 15°.')
       }
-      if (tiltAngle == null || tiltAngle < -5 || tiltAngle > 15) {
-        errors.push('O ângulo de inclinação da face deve estar entre -5° e 15°. ')
+      if (tiltAngle == null || tiltAngle < -15 || tiltAngle > 15) {
+        errors.push('O ângulo de inclinação da face deve estar entre -15° e 15°.')
       }
-      if (panAngle == null || panAngle < -5 || panAngle > 5) {
-        errors.push('O ângulo de panorama da face deve estar entre -5° e 5°. ')
+      if (panAngle == null || panAngle < -15 || panAngle > 15) {
+        errors.push('O ângulo de panorama da face deve estar entre -15° e 15°.')
       }
       if (face.sorrowLikelihood !== 'VERY_UNLIKELY' && face.sorrowLikelihood !== 'UNLIKELY') {
         errors.push('As expressões faciais devem ser neutras. Não sorria ou faça movimentos com o rosto.')

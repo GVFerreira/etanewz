@@ -123,7 +123,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
               "number": cardNumber,
               "cvv": cvv,
               "month": parseInt(monthExpire),
-              "year": parseInt(yearExpire),
+              "year": parseInt(yearExpire.slice(-2)),
               "document_number": documentNumber,
               "name": accountName,
               "installments": separateInstallmentsAndValues(installments).installment,

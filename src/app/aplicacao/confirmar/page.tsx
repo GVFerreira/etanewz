@@ -22,6 +22,7 @@ import Header from "@/app/components/header"
 import Footer from "@/app/components/footer"
 import { Checkbox } from "@/components/ui/checkbox"
 import { toast } from "@/components/ui/use-toast"
+import { set } from "date-fns"
 
 type VisaData = {
   passportNationality: string
@@ -57,6 +58,8 @@ export default function Confirm () {
   const [selectedNationality, setSelectedNationality] = useState<{ value: string; label: string }>()
   const [selectedIssuer, setSelectedIssuer] = useState<{ value: string; label: string }>()
   const [selectedCountryBirth, setSelectedCountryBirth] = useState<{ value: string; label: string }>()
+  const [agreement, setAgreement] = useState(false)
+  const [term, setTerm] = useState(false)
 
   const [modal, setModal] = useState(false)
   
@@ -174,7 +177,7 @@ export default function Confirm () {
                     width={300}
                     height={300}
                     alt={initialData?.name as string}
-                    className="aspect-[3/4] rounded-md"
+                    className="aspect-[3/4] object-cover rounded-md max-w-full max-h-full"
                   />
                 </CardContent>
               </Card>
@@ -573,7 +576,7 @@ export default function Confirm () {
                   <p>Você deve confirmar:</p>
                   <div className="space-y-2">
                     <div className="flex items-center space-x-2">
-                      <Checkbox id="agreement" required/>
+                      <Checkbox id="agreement" onChange={() => setAgreement(!agreement)} required/>
                       <label
                         htmlFor="agreement"
                         className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -582,7 +585,7 @@ export default function Confirm () {
                       </label>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <Checkbox id="terms" required/>
+                      <Checkbox id="terms" onChange={() => setTerm(!term)} required/>
                       <label
                         htmlFor="terms"
                         className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -617,7 +620,7 @@ export default function Confirm () {
                       </Button>
                       <Button
                         className="bg-green-600 uppercase hover:bg-green-500"
-                        disabled={formState.isSubmitting}
+                        disabled={formState.isSubmitting && agreement && term}
                         onClick={(e) => onSubmit(e, "goToPayment")}
                       >
                         {formState.isSubmitting ? "Salvando informações..." : "Ir para Pagamento"}

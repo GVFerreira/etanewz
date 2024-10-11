@@ -18,3 +18,20 @@ export async function getVisas() {
 
   return visas
 }
+
+export async function getPayments() {
+  const visas = prisma.payment.findMany({
+    orderBy: {
+      createdAt: 'desc'
+    },
+    include: {
+      visas: {
+        include: {
+          visas: true // Adicionando os dados de pagamento
+        }
+      }
+    }
+  })
+
+  return visas
+}
