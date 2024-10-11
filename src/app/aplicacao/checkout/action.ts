@@ -25,7 +25,7 @@ export async function getCheckoutVisas(visaId: string[]) {
 
 export async function getInstallmentsAppmax(quantity: number) {
   try {
-    const reqInstallments = await fetch('https://homolog.sandboxappmax.com.br/api/v3/payment/installments', {
+    const reqInstallments = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL_APPMAX}/payment/installments`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

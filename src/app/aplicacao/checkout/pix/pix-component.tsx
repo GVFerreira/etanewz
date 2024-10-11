@@ -16,23 +16,18 @@ import CopyInput from "./copy-button"
 
 export default function Pix() {
   const [id, setId] = useState("")
-  const [qrCode, setQrCode] = useState("")
   const [qrCodeBase64, setQrCodeBase64] = useState("")
   const router = useRouter()
 
   useEffect(() => {
-    const qrCode = localStorage.getItem('qrCode') as string
     const qrCodeBase64 = localStorage.getItem('qrCodeBase64') as string
     const id = localStorage.getItem('id') as string
 
     setId(id)
-    setQrCode(qrCode)
     setQrCodeBase64(qrCodeBase64)
   }, [])
 
   useEffect(() => {
-    
-
     const intervalId = setInterval(async () => {
       try {
         // Chama a função que verifica o status do pagamento
@@ -75,7 +70,7 @@ export default function Pix() {
             <div className="bg-muted p-4 rounded-lg">
               <Image src={`data:image/png;base64,${qrCodeBase64}`} width={150} height={150} alt="QR CODE" className="w-full" />
             </div>
-            <CopyInput qrCode={qrCode} />
+            <CopyInput />
             <p className="text-center text-muted-foreground">
               Ou se preferir, copie o código e cole-o na seção Pix do seu banco
             </p>

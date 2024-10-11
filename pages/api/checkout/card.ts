@@ -148,7 +148,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           return payment
         } catch(e) {
           console.log(e)
-          return {status: 500, message: e}
+          return null
         }
       } else {
       try {
@@ -165,7 +165,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return payment
       } catch(e) {
         console.log(e)
-        return {status: 500, message: e}
+        return null
       }
       }
     }

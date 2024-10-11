@@ -111,8 +111,18 @@ function CardPaymentFields() {
         body: JSON.stringify(data)
       })
 
-      console.log(payment)
-      return payment
+      const responsePayment = await payment.json()
+
+      if (responsePayment.status === "Aprovado") {
+        router.push("/aplicacao/checkout/obrigado")
+      } else {
+        toast({
+          title: "Erro",
+          description: "Não foi possível realizar o pagamento. Verifique as informações digitadas e tente novamente."
+        })
+      }
+      
+      router.refresh()
     } catch (e) {
       console.log(e)
       router.refresh()

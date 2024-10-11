@@ -1,14 +1,20 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Copy, Check } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
-export default function CopyInput({ qrCode }: { qrCode: string }) {
+export default function CopyInput() {
+  const [qrCode, setQrCode] = useState("")
   const [inputValue, setInputValue] = useState(qrCode)
   const [isCopied, setIsCopied] = useState(false)
+  
+  useEffect(() => {
+    const qrCode = localStorage.getItem('qrCode') as string
+    setInputValue(qrCode)
+  }, [])
 
   const handleCopy = async () => {
     if (inputValue) {
