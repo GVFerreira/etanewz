@@ -218,10 +218,15 @@ function BankTransferFields() {
       const responsePayment = await payment.json()
 
       if (payment.status === 201) {
-        console.log(responsePayment.qrCode)
-        console.log(responsePayment.qrCodeBase64)
+        // Redirecionar para a página de checkout/pix passando os dados como query parameters
+        router.push(`/checkout/pix?qrCode=${responsePayment.qrCode}&qrCodeBase64=${responsePayment.qrCodeBase64}`)
       } else if ( payment.status === 200) {
         console.log("Não foi possível redirecionar a página de QR Code")
+        toast({
+          variant: "destructive",
+          title: 'Falha ao gerar PIX',
+          description: 'Um erro ocorreu ao gerar o seu pagamento. Tente novamente mais tarde'
+        })
       }
     } catch (e) {
       console.log(e)

@@ -104,8 +104,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       })
       const pixPayment = await newPayment.json()
 
-      console.log(pixPayment)
-
       if (pixPayment.success) {
         try {
           const payment = await createPayment({

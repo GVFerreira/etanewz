@@ -3,7 +3,7 @@
 import { prisma } from '@/services/database'
 
 export async function getCheckoutVisas(visaId: string[]) {
-  const visas = prisma.visa.findMany({
+  const visas = await prisma.visa.findMany({
     where: {
       id: { in: visaId}
     },
@@ -43,5 +43,29 @@ export async function getInstallmentsAppmax(quantity: number) {
     return response
   } catch (e) {
     console.log(e)
+  }
+}
+
+export async function getPaymentPix(id: string) {
+  try {
+    const payment = await prisma.payment.findUnique({
+      where: {
+        id
+      }
+    })
+
+    if (payment?.status === 'Aprovado') {
+      return {
+        status: true,
+        message: 'O pagamento foi recebido via PIX'
+      }
+    } else {
+      return {
+        return: false,
+        message: 'Nenhum valor foi recebido até o momento'
+      }
+    }
+  } catch (e) {
+
   }
 }
