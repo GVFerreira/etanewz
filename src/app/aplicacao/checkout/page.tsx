@@ -59,7 +59,6 @@ interface PixData {
 function CardPaymentFields() {
   const router = useRouter()
   const { register, handleSubmit, setValue, formState } = useForm<CardData>()
-  
   const [installments, setInstallments] = useState<{label: string, value: string}[]>([])
 
   useEffect(() => {
@@ -78,7 +77,7 @@ function CardPaymentFields() {
           label: value as string, 
           value: value as string 
         }))
-      
+        
         setInstallments(installmentsData)
 
         let visas = await getCheckoutVisas(visaIds)
@@ -116,10 +115,7 @@ function CardPaymentFields() {
       if (responsePayment.status === "Aprovado") {
         router.push("/aplicacao/checkout/obrigado")
       } else {
-        toast({
-          title: "Erro",
-          description: "Não foi possível realizar o pagamento. Verifique as informações digitadas e tente novamente."
-        })
+        router.push("/aplicacao/checkout/negado")
       }
       
       router.refresh()
@@ -291,7 +287,8 @@ export default function Checkout() {
           const formattedVisas = visas.map((visa) => ({
             id: visa.id,
             name: `${visa.name} ${visa.surname}`.toUpperCase(),
-            price: 297
+            // price: 297
+            price: 5
           }))
           setCartItems(formattedVisas)
         }

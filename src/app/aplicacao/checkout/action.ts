@@ -32,8 +32,9 @@ export async function getInstallmentsAppmax(quantity: number) {
       },
       body: JSON.stringify({
         "access-token": process.env.APPMAX_ACCESS_TOKEN,
-        "installments": 6,
-        "total": quantity * 297,
+        "installments": 6,  
+        // "total": quantity * 297,
+        "total": quantity * 5,
         "format": 2 
       })
     })

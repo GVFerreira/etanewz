@@ -26,7 +26,6 @@ export default function SolicitationsTable({ visas }: { visas: any[] }) {
           <TableRow key={index}>
             <TableCell>
               <p>{visa.name + " " + visa.surname}</p>
-              <p>{visa.payments[0].id}</p>
             </TableCell>
             <TableCell>
               <p>{visa.email}</p>

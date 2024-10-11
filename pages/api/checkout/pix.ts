@@ -79,7 +79,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             "name": "Assessoria - eTA Nova Zelândia",
             "qty": quantity,
             // "price": 297, // PROD
-            "price": 0.5, // DEV
+            "price": 5, // DEV
             "digital_product": 1
           }],
           "customer_id": client.data.id

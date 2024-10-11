@@ -102,7 +102,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             "sku": "835103",
             "name": "Assessoria - eTA Nova Zelândia",
             "qty": quantity,
-            "price": pricePerVisa(),
+            // "price": pricePerVisa(),
+            "price": 1.00,
             "digital_product": 1
           }],
           "customer_id": client.data.id
