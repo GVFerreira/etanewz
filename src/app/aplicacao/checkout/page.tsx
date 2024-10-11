@@ -103,7 +103,6 @@ function CardPaymentFields() {
 
 
   const handleCardPayment: SubmitHandler<CardData> = async (data) => {
-    console.log(data)
     try {
       const payment = await fetch('/api/checkout/card', {
         method: 'POST',

@@ -146,10 +146,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             paymentTypeId: "credit_card",
           }, visas)
 
-          return payment
+          return res.status(201).json(payment)
         } catch(e) {
           console.log(e)
-          return null
+          return res.status(500).json(e)
         }
       } else {
       try {
@@ -163,14 +163,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           paymentTypeId: "credit_card",
         }, visas)
 
-        return payment
+        return res.status(200).json(payment)
       } catch(e) {
         console.log(e)
-        return null
+        return res.status(500).json(e)
       }
       }
     }
    } catch (e) {
     console.log(e)
+    return res.status(500).json(e)
    }
 }
