@@ -87,7 +87,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       })
       const order = await newOrder.json()
   
-      const newPayment = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL_APPMAX}/payment/credit-card`, {
+      const newPayment = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL_APPMAX}/payment/pix`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -103,6 +103,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         })
       })
       const pixPayment = await newPayment.json()
+
+      console.log(pixPayment)
 
       if (pixPayment.success) {
         try {

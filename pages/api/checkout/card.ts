@@ -50,22 +50,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   function formatTel(numberTel: string) { return numberTel.replace(/\D/g, '').slice(0, 11) }
 
   function separateInstallmentsAndValues (inputForm: string) {
-  /// String original
-  let stringOriginal = inputForm
+    /// String original
+    let stringOriginal = inputForm
 
-  // Encontrando o índice do 'R$'
-  let indiceR$ = stringOriginal.indexOf('R$')
+    // Encontrando o índice do 'R$'
+    let indiceR$ = stringOriginal.indexOf('R$')
 
-  // Extraindo os 2 primeiros caracteres
-  let installments = stringOriginal.substr(0, 2)
+    // Extraindo os 2 primeiros caracteres
+    let installments = stringOriginal.substr(0, 2)
 
-  // Extraindo os caracteres a partir do índice do 'R$' até o final
-  let valueInstallment = stringOriginal.substr(indiceR$ + 3)
+    // Extraindo os caracteres a partir do índice do 'R$' até o final
+    let valueInstallment = stringOriginal.substr(indiceR$ + 3)
 
-  // Convertendo o valor da parcela para float (substituindo ',' por '.' antes de converter)
-  let valueInstallmentFloat = parseFloat(valueInstallment.replace('.', '').replace(',', '.'))
+    // Convertendo o valor da parcela para float (substituindo ',' por '.' antes de converter)
+    let valueInstallmentFloat = parseFloat(valueInstallment.replace('.', '').replace(',', '.'))
 
-  return { installment: parseInt(installments), valueInstallmentFloat }
+    return { installment: parseInt(installments), valueInstallmentFloat }
   }
 
   function pricePerVisa () {
