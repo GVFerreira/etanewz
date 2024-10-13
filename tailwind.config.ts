@@ -18,6 +18,11 @@ const config = {
       },
     },
     extend: {
+      backgroundImage: {
+        "home": "url('/background/landscape-new-zealand.webp')",
+        "silhouette": "url('/background/silhueta.svg')",
+        "leaf": "url('/leaf.png')"
+      },
       colors: {
         nzblack: "#100D0F",
         nzgrey: "#AEAEAE",

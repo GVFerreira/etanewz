@@ -564,7 +564,7 @@ export default function Confirm () {
                   <p>A Immigration New Zealand (INZ) usará as informações que você forneceu neste formulário para avaliar sua solicitação de NZeTA. Suas informações também são coletadas e usadas com o propósito de melhorar os serviços da INZ e a administração da Lei de Imigração de 2009. As informações que você forneceu serão retidas e se tornarão parte do seu registro de imigração na Nova Zelândia.</p>
                   <p>A INZ também usará o endereço de e-mail fornecido para se comunicar com você sobre sua solicitação, sua viagem para a Nova Zelândia e assuntos relacionados ao seu status de imigração enquanto você estiver na Nova Zelândia.
                   </p>
-                  <p>Antes de enviar sua solicitação, certifique-se de ter lido e compreendido os <Link href="/termos-de-uso" className="underline">Termos de Uso</Link> e a <Link href="/politica-de-privacidade" className="underline">Política de Privacidade</Link>.</p>
+                  <p>Antes de enviar sua solicitação, certifique-se de ter lido e compreendido os <Link href="/termos" className="underline">Termos de Uso</Link> e a <Link href="/politica-privacidade" className="underline">Política de Privacidade</Link>.</p>
                   <hr className="my-4"/>
                   <h4 className="font-bold">Declaração</h4>
                   <p>Tanto quanto sei, as informações que forneci neste formulário são precisas e respondi às perguntas de forma verdadeira e correta.</p>

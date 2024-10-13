@@ -1,13 +1,14 @@
 'use client'
 
-import { AirplaneTilt, Textbox, Wallet } from "@phosphor-icons/react/dist/ssr"
 import Link from "next/link"
+
+import { useEffect } from 'react'
+import { AirplaneTilt, Textbox, Wallet } from "@phosphor-icons/react/dist/ssr"
 
 import Accordion from "../components/accordion"
 import Header from "@/app/components/header"
 import Footer from "@/app/components/footer"
 import Countries from "../components/countries"
-import { useEffect } from 'react'
 
 export default function Home() {
   useEffect(() => {
@@ -18,7 +19,7 @@ export default function Home() {
     <>
       <Header />
       <main>
-        <section style={{backgroundImage: "url(./background/landscape-new-zealand.webp)"}} className="bg-center bg-no-repeat bg-cover">
+        <section className="bg-home bg-center bg-no-repeat bg-cover">
           <div className="container max-w-screen-sm mx-auto py-16 px-5 text-center md:py-36">
             <h1 className="text-6xl font-bold text-white mb-3">eTA Nova Zelândia</h1>
             <p className="text-nzwhite mb-8">Autorização Eletrônica de Viagem à Nova Zelândia</p>
@@ -26,9 +27,9 @@ export default function Home() {
           </div>
         </section>
 
-        <section style={{backgroundImage: "url(./background/silhueta.svg)"}} className="bg-top py-16 bg-no-repeat bg-cover">
-          <div className="container mx-auto grid grid-cols-1 gap-12 md:grid-cols-2">
-            <div className="max-w-screen-sm my-auto mx-auto p-5 rounded-md space-y-8 bg-white/40 backdrop-blur-sm shadow-xl">
+        <section className="bg-silhouette bg-top py-16 bg-no-repeat bg-cover">
+          <div className="container mx-auto flex justify-center">
+            <div className="max-w-screen-lg my-auto mx-auto p-5 rounded-md space-y-8 bg-white/40 backdrop-blur-sm shadow-xl">
               <div>
                 <h2 className="text-3xl font-bold mb-2">O que é esta autorização?</h2>
                 <p>A NZeTA (New Zealand Electronic Travel Authorization) é um documento eletrônico exigido para viajantes elegíveis que desejam entrar na Nova Zelândia por via aérea.</p>
@@ -41,7 +42,9 @@ export default function Home() {
                 <h2 className="text-3xl font-bold mb-2">Por onde solicitar?</h2>
                 <p>O processo de solicitação da NZeTA é realizado on-line e geralmente leva apenas alguns minutos. Para solicitar a sua NZeTA você precisará de um passaporte válido, um endereço de e-mail, uma foto do seu rosto (ou um dispositivo eletrônico capaz de tirar sua foto) e de um meio de pagamento para a taxa de serviço. A foto do seu rosto precisa atender os requisitos do governo da Nova Zelândia.</p>
               </div>
-              <Link href="/aplicacao/dados"><p className="inline-block bg-green-600 text-white p-3 mt-6 font-bold uppercase rounded">Solicitar autorização</p></Link>
+              <Link href="/aplicacao/dados" className="mx-auto">
+                <span className="inline-block bg-green-600 text-white p-3 mt-6 font-bold uppercase rounded">Solicitar autorização</span>
+              </Link>
             </div>
           </div>
         </section>
@@ -84,12 +87,12 @@ export default function Home() {
 
         <section className="bg-nzblack">
           <div className="container mx-auto py-16">
-            <h2 className="text-4xl text-white md:w-2/3 mx-auto font-bold mb-12 text-center">Países que necessitam emitir a Autorização Eletrônica de Viagem da Nova Zelândia (NZeTA)</h2>
+            <h2 className="text-3xl text-white mx-auto font-bold mb-12 text-center md:w-2/3 md:text-4xl">Países que necessitam emitir a Autorização Eletrônica de Viagem da Nova Zelândia (NZeTA)</h2>
             <Countries />
           </div>
         </section>
 
-        <div style={{backgroundImage: "url(/leaf.png)"}} className="bg-no-repeat bg-[length:60rem] bg-center pb-16">
+        <div className="bg-leaf bg-no-repeat bg-[length:60rem] bg-center pb-16">
           <section>
             <div className="container mx-auto max-w-screen-md py-16 px-5 text-center">
               <h2 className="text-4xl font-bold mb-2">Planejando sua viagem para a Nova Zelândia?</h2>
@@ -99,8 +102,8 @@ export default function Home() {
           </section>
 
           <section>
-            <div className="container mx-auto grid grid-cols-1 gap-x-12 md:grid-cols-2">
-              <div className="max-w-screen-sm my-auto p-5 space-y-8 bg-white/40 backdrop-blur-sm shadow-xl rounded">
+            <div className="container mx-auto flex justify-center">
+              <div className="max-w-screen-lg my-auto mx-auto p-5 rounded-md space-y-8 bg-white/40 backdrop-blur-sm shadow-xl">
                 <h2 className="text-4xl font-bold mb-12">Taxa de turismo</h2>
                 <div>
                   <h3 className="text-2xl font-bold mb-2">O que é?</h3>
