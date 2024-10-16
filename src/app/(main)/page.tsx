@@ -21,8 +21,8 @@ export default function Home() {
       <main>
         <section className="bg-home bg-center bg-no-repeat bg-cover">
           <div className="container max-w-screen-sm mx-auto py-16 px-5 text-center md:py-36">
-            <h1 className="text-6xl font-bold text-white mb-3">eTA Nova Zelândia</h1>
-            <p className="text-nzwhite mb-8">Autorização Eletrônica de Viagem à Nova Zelândia</p>
+            <h1 className="text-6xl font-bold text-white mb-3">NZeTA Nova Zelândia</h1>
+            <p className="text-nzwhite mb-8">Autorização Eletrônica de Viagem a Nova Zelândia</p>
             <Link href="/aplicacao/dados"><p className="inline-block bg-green-600 text-white p-3 font-bold uppercase rounded">Solicitar autorização</p></Link>
           </div>
         </section>
@@ -36,7 +36,11 @@ export default function Home() {
               </div>
               <div>
                 <h2 className="text-3xl font-bold mb-2">Eu preciso ter para entrar na Nova Zelândia?</h2>
-                <p>A NZeTA é obrigatória para <b>xxxxxxxxxxxxxxxx</b>, que estão viajando a passeio, para estudos (com duração máxima de 3 meses) ou para negócios. A NZeTA é válida por até dois anos ou até que o passaporte do viajante expire, o que ocorrer primeiro.</p>
+                <p>A NZeTA é obrigatória para <b>brasileiros e estrangeiros elegíveis</b> à obtenção da Autorização Eletrônica de Viagem, que estão viajando a passeio, para estudos (com duração máxima de 3 meses) ou para negócios. A NZeTA é válida por até dois anos ou até que o passaporte do viajante expire, o que ocorrer primeiro.</p>
+              </div>
+              <div>
+                <h2 className="text-3xl font-bold mb-2">O que é a IVL e quanto custa?</h2>
+                <p>Caso sua viagem não seja somente de trânsito e você permaneça na Nova Zelândia, precisará pagar também a Taxa Internacional de Turismo e Conservação da Nova Zelândia (IVL). A IVL corresponde a 100 dólares neozelandeses, ou R$ 350,00.</p>
               </div>
               <div>
                 <h2 className="text-3xl font-bold mb-2">Por onde solicitar?</h2>
@@ -69,7 +73,7 @@ export default function Home() {
                 </div>
                 <div>
                   <h3 className="text-2xl font-bold mb-2">Realize o pagamento</h3>
-                  <p className="text-nzgrey">Faça o pagamento de <b>R$ 297,00</b> em um ambiente totalmente SEGURO para finalizar a solicitação. Este valor inclui a taxa de serviço, a taxa consular e o IVL cobrado pelo governo.</p>
+                  <p className="text-nzgrey">Faça o pagamento de <b>R$ 297,00</b>, que inclui as taxas consular e de serviço, em um ambiente totalmente SEGURO para finalizar a solicitação. Caso você permaneça na Nova Zelândia, será necessário o recolhimento adicional da Taxa Internacional de Turismo e Conservação da Nova Zelândia (IVL), que tem o valor individual de R$ 350,00.</p>
                 </div>
               </div>
               <div className="flex justify-start items-center gap-6 md:flex-col">

@@ -1,15 +1,11 @@
-import NextAuth from 'next-auth'
+import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import bcrypt from "bcryptjs"
 
 import { PrismaAdapter } from '@auth/prisma-adapter'
-import { prisma } from '../database'
+import { prisma } from '@/services/database'
 
-export const {
-  handlers: { GET, POST },
-  auth,
-} = NextAuth({
-  // trustHost: true,
+const handler = NextAuth({
   pages: {
     signIn: '/login',
     signOut: '/login',
@@ -49,8 +45,7 @@ export const {
         }
       }
     })
-  ],
-  events: {
-    // Eventos do NextAuth (opcional)
-  }
+  ]
 })
+
+export { handler as GET, handler as POST }

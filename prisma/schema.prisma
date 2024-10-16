@@ -49,6 +49,8 @@ model Visa {
   convictedMoreThanFive   Boolean  @map("convicted_more_than_five")
   convictedMoreThanTwelve Boolean  @map("convicted_more_than_twelve")
   codeETA                 String   @unique @map("code_eta")
+  statusETA               String?  @default("Em análise") @map("status_eta")
+  attachmentPath          String?  @map("attachment_path")
   imagePath               String?
   createdAt               DateTime @default(now()) @map("created_at")
 

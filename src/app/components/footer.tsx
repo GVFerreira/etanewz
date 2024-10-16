@@ -27,7 +27,7 @@ export default function Footer() {
             <h4 className="text-lg font-semibold mb-4">Links importantes</h4>
             <nav>
               <ul className="space-y-4 underline">
-                <li><Link href="/artigos" className="hover:text-zinc-600">Artigos</Link></li>
+                {/* <li><Link href="/artigos" className="hover:text-zinc-600">Artigos</Link></li> */}
                 <li><Link href="/cadastur" className="hover:text-zinc-600">Certificado Cadastur</Link></li>
                 <li><Link href="/politica-privacidade" className="hover:text-zinc-600">Política de Privacidade</Link></li>
                 <li><Link href="/termos" className="hover:text-zinc-600">Termos e Condições</Link></li>

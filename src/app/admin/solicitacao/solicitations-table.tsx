@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from '@/components/ui/table'
-import { Eye, Pencil, X } from "lucide-react"
+import { Divide, Eye, Pencil, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
@@ -33,7 +33,13 @@ export default function SolicitationsTable({ visas }: { visas: any[] }) {
         {visas.map((visa: any, index: number) => (
           <TableRow key={index}>
             <TableCell>
-              <Image src={`${visa.imagePath}`} width={300} height={300} alt={visa.name + visa.surname} className="w-full aspect-[3/4] object-cover max-w-xs max-h-xs border-2 border-gray-300" />
+              { visa.imagePath ?
+                <Image src={`${visa.imagePath}`} width={300} height={300} alt={visa.name + visa.surname} className="w-full aspect-[3/4] object-cover max-w-xs max-h-xs border-2 border-gray-300" />
+                :
+                <div className="flex justify-center items-center aspect-[3/4] border-2 bg-gray-300">
+                  <p className="text-center">Sem<br />imagem</p>
+                </div>
+              }
             </TableCell>
             <TableCell>
               <p>{visa.name + " " + visa.surname}</p>
@@ -72,12 +78,20 @@ export default function SolicitationsTable({ visas }: { visas: any[] }) {
                       <div className="grid grid-cols-2 gap-16 flex-grow overflow-auto p-6">
                         <div className="space-y-6 max-w-2xl mx-auto">
                           <h3 className="text-lg font-bold">Informações do aplicante</h3>
-                          <Image src={`${selectedVisa.imagePath}`} width={300} height={300} alt={selectedVisa.name + selectedVisa.surname} className="w-[180px] aspect-[3/4] object-cover border-2 border-gray-300" />
-                          <Button>
-                            <a href={selectedVisa.imagePath} download>
-                              Download da imagem
-                            </a>
-                          </Button>
+                          { selectedVisa.imagePath ? 
+                            <>
+                              <Image src={`${selectedVisa.imagePath}`} width={300} height={300} alt={selectedVisa.name + " " + selectedVisa.surname} className="w-[180px] aspect-[3/4] object-cover border-2 border-gray-300" />
+                              <Button>
+                                <a href={selectedVisa.imagePath} download>
+                                  Download da imagem
+                                </a>
+                              </Button>
+                            </>
+                            :
+                            <div className="w-[180px] flex justify-center items-center aspect-[3/4] border-2 bg-gray-300">
+                              <p>Sem imagem</p>
+                            </div>
+                          }
                           <div className="grid grid-cols-2 gap-4">
                             <div className="space-y-2">
                               <Label htmlFor="name">Nacionalidade do passaporte</Label>

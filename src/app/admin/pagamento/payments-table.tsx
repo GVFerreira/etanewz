@@ -5,16 +5,11 @@ import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from '@
 import { Eye, Pencil, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
-import Image from "next/image"
 import Link from "next/link"
 
 export default function PaymentsTable({ payments }: { payments: any[] }) {
-  console.log(payments)
-
   return (
     <Table>
       <TableHeader>
