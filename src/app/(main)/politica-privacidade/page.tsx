@@ -23,7 +23,7 @@ export default function PoliticaPrivacidade() {
             <li>Informações de identificação, como nome, endereço, data de nascimento e nacionalidade.</li>
             <li>Informações de contato, incluindo endereço de e-mail e número de telefone.</li>
             <li>Informações de passaporte, incluindo número de passaporte e data de emissão.</li>
-            <li>Outras informações necessárias para o processo de aplicação de eTA.</li>
+            <li>Outras informações necessárias para o processo de aplicação de NZeTA.</li>
           </ul>
         </div>
         <hr />
@@ -31,7 +31,7 @@ export default function PoliticaPrivacidade() {
           <h2 className="text-4xl font-bold mb-4">3. Uso das informações pessoais</h2>
           <p>Usamos suas informações pessoais para os seguintes fins:</p>
           <ul className="list-disc ml-6">
-            <li>Processar sua aplicação de eTA.</li>
+            <li>Processar sua aplicação de NZeTA.</li>
             <li>Comunicar-se com você sobre o status da aplicação.</li>
             <li>Cumprir requisitos legais e regulatórios.</li>
             <li>Melhorar nossos serviços e a experiência do usuário.</li>
@@ -43,7 +43,7 @@ export default function PoliticaPrivacidade() {
           <h2 className="text-4xl font-bold mb-4">4. Divulgação de informações</h2>
           <p>Não divulgaremos suas informações pessoais a terceiros, exceto nas seguintes circunstâncias:</p>
           <ul className="list-disc ml-6">
-            <li>Quando necessário para processar sua aplicação de eTA junto às autoridades canadenses.</li>
+            <li>Quando necessário para processar sua aplicação de NZeTA junto às autoridades neozelandesas.</li>
             <li>Para cumprir requisitos legais ou regulatórios.</li>
             <li>Para proteger nossos direitos legais ou interesses.</li>
           </ul>

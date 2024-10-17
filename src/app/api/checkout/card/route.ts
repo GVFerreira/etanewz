@@ -107,9 +107,9 @@ export async function POST(req: Request) {
           "access-token": process.env.APPMAX_ACCESS_TOKEN,
           "products": [{
             "sku": "835103",
-            "name": "Assessoria - eTA Nova Zelândia",
+            "name": "Assessoria - NZeTA Nova Zelândia",
             "qty": quantity,
-            "price": separateInstallmentsAndValues(installments).valueInstallmentFloat / quantity,
+            "price": pricePerVisa,
             "digital_product": 1
           }],
           "customer_id": client.data.id
@@ -191,19 +191,6 @@ export async function POST(req: Request) {
           const dataVisas = await getVisasEmail(visas)
 
           if (dataVisas) {
-            const qtyVisas = quantity
-            let linkStripe = "https://buy.stripe.com/3cs1833K0cQR1QkdQQ"
-
-            const links = {
-              1: "https://buy.stripe.com/eVa3gb94k9EF52w002",
-              2: "https://buy.stripe.com/dR69Ez6WccQR66A6or",
-              3: "https://buy.stripe.com/eVag2X5S8cQRfHa5ko",
-              4: "https://buy.stripe.com/fZe8Ava8o045fHa5kp",
-              5: "https://buy.stripe.com/cN27wr4O4bMNfHa4gm",
-              6: "https://buy.stripe.com/8wM5ojeoEaIJbqU8wD",
-            }
-            linkStripe = links[qtyVisas as keyof typeof links] || linkStripe
-  
             for (const visa of dataVisas) {
               await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/send-mail`, {
                 method: 'POST',
@@ -215,8 +202,7 @@ export async function POST(req: Request) {
                   template: 'pagamento-negado',
                   context: {
                     codeETA: visa.codeETA,
-                    paymentId: payment?.id,
-                    linkStripe
+                    paymentId: payment?.id
                   }
                 })
               })

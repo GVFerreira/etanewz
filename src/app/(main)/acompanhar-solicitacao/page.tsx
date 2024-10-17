@@ -58,12 +58,12 @@ export default function AcompanharSolicitacao() {
         <h1 className="text-4xl font-bold mb-3">Acompanhar solicitação</h1>
         <hr className="my-4"/>
         <h2 className="text-xl font-bold mb-3">Verifique o status da sua solicitação</h2>
-        <p>Informe seu e-mail, código eTA ou nº de passaporte para consultar o progresso da sua aplicação.</p>
+        <p>Informe seu e-mail, código NZeTA ou nº de passaporte para consultar o progresso da sua aplicação.</p>
         <form onSubmit={handleSubmit(onSubmit)} className="my-4 space-y-2">
           <div>
             <Label>Escolha:</Label>
             <Select
-              options={[{value: "email", label: "E-mail"}, {value: "codeETA", label: "Código eTA"}, {value: "passport", label: "Passaporte"}]}
+              options={[{value: "email", label: "E-mail"}, {value: "codeETA", label: "Código NZeTA"}, {value: "passport", label: "Passaporte"}]}
               placeholder="Selecione"
               className="w-full max-w-[300px]"
               onChange={handleTypeData}
@@ -74,7 +74,7 @@ export default function AcompanharSolicitacao() {
             <div className="flex w-full items-center space-x-2">
               <Input
                 type="text"
-                placeholder="Insira o e-mail, código eTA ou nº de passaporte"
+                placeholder="Insira o e-mail, código NZeTA ou nº de passaporte"
                 className="bg-white w-full max-w-[300px]"
                 required
                 {...register('data')}

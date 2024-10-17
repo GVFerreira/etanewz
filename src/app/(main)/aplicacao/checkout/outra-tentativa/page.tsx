@@ -19,7 +19,7 @@ import { toast } from "@/components/ui/use-toast"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
-// import { Badge } from "@/components/ui/badge"
+import { Badge } from "@/components/ui/badge"
 
 import HeaderCKO from "@/app/components/header-cko"
 import FooterCKO from "@/app/components/footer-cko"
@@ -54,6 +54,7 @@ interface PixData {
   accountName: string
   documentNumber: string
   quantity: number
+  amount: number
   visas: string[]
 }
 
@@ -69,7 +70,6 @@ function CardPaymentFields() {
     // fetch para consulta das parcelas
     const fetchData = async () => {
       try {
-
         const payment = await getPayment(paymentId as string)
 
         if (!payment) return
@@ -90,8 +90,6 @@ function CardPaymentFields() {
         }))
         
         setInstallments(installmentsData)
-
-        
 
         localStorage.setItem('visasInSession', JSON.stringify(visaIds))
 
@@ -127,7 +125,7 @@ function CardPaymentFields() {
       if (responsePayment.status === "Aprovado") {
         router.push("/aplicacao/checkout/obrigado")
       } else {
-        router.push("/aplicacao/checkout/negado")
+        router.push(`/aplicacao/checkout/negado?paymentId=${responsePayment.id}`)
       }
       
       router.refresh()
@@ -196,7 +194,7 @@ function CardPaymentFields() {
   )
 }
 
-function BankTransferFields() {
+function BankTransferFields({ amount }: { amount: number }) {
   const router = useRouter()
   const { register, handleSubmit, setValue, formState } = useForm<PixData>()
 
@@ -230,7 +228,10 @@ function BankTransferFields() {
     try {
       const payment = await fetch('/api/checkout/pix', {
         method: 'POST',
-        body: JSON.stringify(data)
+        body: JSON.stringify({
+          ...data,
+          amount
+        })
       })
 
       const responsePayment = await payment.json()
@@ -276,7 +277,7 @@ function BankTransferFields() {
         className="md:w-1/2 m-auto bg-green-600 hover:bg-green-500"
         disabled={formState.isSubmitting}
       >
-        {formState.isSubmitting ? "Gerando QR Code" : "Gerar PIX QR Code"}
+        {formState.isSubmitting ? "Gerando QR Code..." : "Gerar PIX QR Code"}
       </Button>
     </form>
   )
@@ -285,6 +286,8 @@ function BankTransferFields() {
 export default function Checkout() {
   const [cartItems, setCartItems] = useState<CartItem[]>([])
   const [paymentMethod, setPaymentMethod] = useState("card")
+  const [totalCart, setTotalCart] = useState(0)
+  const [discountedTotal, setDiscountedTotal] = useState(0)
 
   useEffect(() => {
     const visasInSession = localStorage.getItem('visasInSession')
@@ -296,12 +299,15 @@ export default function Checkout() {
       try {
         let visas = await getCheckoutVisas(visaIds)
         if (visas) {
+          // Verifica se ao menos um registro tem stayInNZ como true
+          const hasStayInNZ = visas.some(visa => visa.stayInNZ)
+
           const formattedVisas = visas.map((visa) => ({
             id: visa.id,
             name: `${visa.name} ${visa.surname}`.toUpperCase(),
-            // price: 297
-            price: 5
+            price: hasStayInNZ ? 297 + 350 : 297
           }))
+
           setCartItems(formattedVisas)
         }
       } catch (e) {
@@ -312,7 +318,18 @@ export default function Checkout() {
     fetchData()
   }, [])
 
-  const total = cartItems.reduce((sum, item) => sum + item.price, 0)
+  useEffect(() => {
+    // Calcular o total do carrinho
+    const cartTotal = cartItems.reduce((sum, item) => sum + item.price, 0)
+    setTotalCart(cartTotal)
+
+    // Aplicar desconto de 5% se o método de pagamento for "Bank Transfer"
+    if (paymentMethod !== "card") {
+      setDiscountedTotal(cartTotal * 0.95) // 5% de desconto
+    } else {
+      setDiscountedTotal(cartTotal) // Sem desconto
+    }
+  }, [cartItems, paymentMethod])
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -339,17 +356,48 @@ export default function Checkout() {
               </div>
               <div className="flex justify-between w-full text-lg font-semibold">
                 <span>Total:</span>
-                <span>R$ {total.toFixed(2)}</span>
+                <p className="text-end">
+                  { totalCart === discountedTotal
+                    ?
+                      <span>R$  {totalCart.toFixed(2)}</span> 
+                    : 
+                      <>
+                        <span className="text-white rounded-md bg-green-600 py-1 px-2 animate-pulse">R$ {discountedTotal.toFixed(2)}</span><br />
+                        <span className="text-sm line-through">R$ {totalCart.toFixed(2)}</span>
+                      </>
+                  }
+                </p>
               </div>
+              <hr />
               <div>
                 <h3 className="text-lg font-semibold mb-2">Método de pagamento</h3>
                 <RadioGroup
                   defaultValue="card"
                   onValueChange={(value) => setPaymentMethod(value)}
-                  className="grid"
+                  className="grid grid-cols-2 gap-4 mb-4"
                 >
-                  {/* Seus métodos de pagamento */}
+                  <div>
+                    <RadioGroupItem value="card" id="card" className="peer sr-only" />
+                    <Label
+                      htmlFor="card"
+                      className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                    >
+                      <CreditCard className="mb-3 h-6 w-6" />
+                      Cartão de crédito
+                    </Label>
+                  </div>
+                  <div className="relative">
+                    <RadioGroupItem value="bank" id="bank" className="peer sr-only" />
+                    <Label htmlFor="bank"
+                      className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                    >
+                      <PixIcon />
+                      Pix
+                    </Label>
+                    <Badge className="absolute top-[-0.8rem] right-[5px] bg-green-600 text-[0.8rem]">5% OFF</Badge>
+                  </div>
                 </RadioGroup>
+                {paymentMethod === "card" ? <CardPaymentFields /> : <BankTransferFields amount={discountedTotal} />}
               </div>
             </CardContent>
           </Suspense>
@@ -357,6 +405,14 @@ export default function Checkout() {
       </main>
       <FooterCKO />
     </div>
+  )
+}
+
+function PixIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256" className="mb-3 size-6">
+      <path d="M235.34,116.72,139.28,20.66a16,16,0,0,0-22.56,0L20.66,116.72a16,16,0,0,0,0,22.56l96.06,96.06a16,16,0,0,0,22.56,0l96.06-96.06A16,16,0,0,0,235.34,116.72ZM128,32,184,88H160a8,8,0,0,0-5.66,2.34L128,116.68,101.66,90.34A8,8,0,0,0,96,88H72ZM56,104H92.68l24,24-24,24H56L32,128Zm72,120L72,168H96a8,8,0,0,0,5.66-2.34L128,139.31l26.34,26.35A8,8,0,0,0,160,168h24Zm72-72H163.32l-24-24,24-24H200l24,24Z"></path>
+    </svg>
   )
 }
 

@@ -1,6 +1,8 @@
 'use client'
 
-import { getCheckoutVisas, getInstallmentsAppmax } from "./action"
+import { Suspense } from "react"
+import { getCheckoutVisasRemember, getInstallmentsAppmaxRemember, getRememberVisa } from "../action"
+import { useSearchParams } from 'next/navigation'
 import { useRouter } from "next/navigation"
 import dynamic from 'next/dynamic'
 import Image from "next/image"
@@ -21,7 +23,6 @@ import { Badge } from "@/components/ui/badge"
 
 import HeaderCKO from "@/app/components/header-cko"
 import FooterCKO from "@/app/components/footer-cko"
-
 
 interface CartItem {
   id: string
@@ -62,16 +63,14 @@ function CardPaymentFields() {
   const { register, handleSubmit, setValue, formState } = useForm<CardData>()
   const [installments, setInstallments] = useState<{label: string, value: string}[]>([])
 
+  const searchParams = useSearchParams()
+  const visaId = searchParams?.get('visaId')
+
   useEffect(() => {
-    const visasInSession = localStorage.getItem('visasInSession')
-    const visaIds = JSON.parse(visasInSession as string)
-  
-    if (!visaIds) return
-  
     // fetch para consulta das parcelas
     const fetchData = async () => {
       try {
-        const response = await getInstallmentsAppmax(visaIds.length, visaIds)
+        const response = await getInstallmentsAppmaxRemember(1, visaId as string)
 
         const installmentsData = Object.entries(response.data).map(([key, value]) => ({
           // o valor é a descrição da parcela
@@ -81,14 +80,16 @@ function CardPaymentFields() {
         
         setInstallments(installmentsData)
 
-        let visas = await getCheckoutVisas(visaIds)
-        if (visas) {
-          setValue('visas', visaIds)
-          setValue('quantity', visas.length)
-          setValue('name', visas[0].name)
-          setValue('surname', visas[0].surname)
-          setValue('email', visas[0].email)
-          setValue('telephone', visas[0].telephone)
+        localStorage.setItem('visasInSession', JSON.stringify(visaId))
+        
+        const visa = await getRememberVisa(visaId as string)
+
+        if (visa) {
+          setValue('quantity', 1)
+          setValue('name', visa.name)
+          setValue('surname', visa.surname)
+          setValue('email', visa.email)
+          setValue('telephone', visa.telephone)
         }
       } catch (e) {
         console.log(e)
@@ -96,7 +97,7 @@ function CardPaymentFields() {
     }
     fetchData()
     
-  }, [setValue])
+  }, [visaId, setValue])
 
   const handleMonthExpire = (selectedOption: any) => setValue('monthExpire', selectedOption.value)
   const handleYearExpire = (selectedOption: any) => setValue('yearExpire', selectedOption.value)
@@ -190,21 +191,21 @@ function BankTransferFields({ amount }: { amount: number }) {
 
   useEffect(() => {
     const visasInSession = localStorage.getItem('visasInSession')
-    const visaIds = JSON.parse(visasInSession as string)
+    const visaId = JSON.parse(visasInSession as string)
   
-    if (!visaIds) return
+    if (!visaId) return
   
     // fetch para consulta das parcelas
     const fetchData = async () => {
       try {
-        let visas = await getCheckoutVisas(visaIds)
-        if (visas) {
-          setValue('visas', visaIds)
-          setValue('quantity', visas.length)
-          setValue('name', visas[0].name)
-          setValue('surname', visas[0].surname)
-          setValue('email', visas[0].email)
-          setValue('telephone', visas[0].telephone)
+        let visa = await getCheckoutVisasRemember(visaId)
+        if (visa) {
+          setValue('visas', visaId)
+          setValue('quantity', 1)
+          setValue('name', visa.name)
+          setValue('surname', visa.surname)
+          setValue('email', visa.email)
+          setValue('telephone', visa.telephone)
         }
       } catch (e) {
         console.log(e)
@@ -274,121 +275,123 @@ function BankTransferFields({ amount }: { amount: number }) {
 }
 
 export default function Checkout() {
-  const [cartItems, setCartItems] = useState<CartItem[]>([])
+  const [cartItems, setCartItems] = useState<CartItem>()
   const [paymentMethod, setPaymentMethod] = useState("card")
   const [totalCart, setTotalCart] = useState(0)
   const [discountedTotal, setDiscountedTotal] = useState(0)
 
   useEffect(() => {
     const visasInSession = localStorage.getItem('visasInSession')
-    const visaIds = JSON.parse(visasInSession as string)
+    const visaId = JSON.parse(visasInSession as string)
 
-    if (!visaIds) return
+    if (!visaId) return
 
     const fetchData = async () => {
       try {
-        let visas = await getCheckoutVisas(visaIds)
-        if (visas) {
+        let visa = await getCheckoutVisasRemember(visaId)
+        if (visa) {
           // Verifica se ao menos um registro tem stayInNZ como true
-          const hasStayInNZ = visas.some(visa => visa.stayInNZ)
-    
-          const formattedVisas = visas.map((visa) => ({
+          const hasStayInNZ = visa.stayInNZ
+
+          const formattedVisas = {
             id: visa.id,
             name: `${visa.name} ${visa.surname}`.toUpperCase(),
             price: hasStayInNZ ? 297 + 350 : 297
-          }))
-    
+          }
+
           setCartItems(formattedVisas)
         }
       } catch (e) {
         console.log(e)
       }
-    }    
+    }
 
     fetchData()
   }, [])
 
   useEffect(() => {
-    // Calcular o total do carrinho
-    const cartTotal = cartItems.reduce((sum, item) => sum + item.price, 0)
-    setTotalCart(cartTotal)
-
+    // Verificar se o item do carrinho existe e se o preço está definido
+    const cartTotal = cartItems?.price ?? 0; // Se `cartItems?.price` for `undefined`, definir `cartTotal` como 0
+    setTotalCart(cartTotal);
+  
     // Aplicar desconto de 5% se o método de pagamento for "Bank Transfer"
     if (paymentMethod !== "card") {
-      setDiscountedTotal(cartTotal * 0.95) // 5% de desconto
+      setDiscountedTotal(Number((cartTotal * 0.95).toFixed(2))); // Converter para string formatada com 2 casas decimais
     } else {
-      setDiscountedTotal(cartTotal) // Sem desconto
+      setDiscountedTotal(Number(cartTotal.toFixed(2))); // Sem desconto, mas formatado corretamente
     }
-  }, [cartItems, paymentMethod])
+  }, [cartItems, paymentMethod]);
 
   return (
     <div className="flex flex-col min-h-screen">
       <HeaderCKO />
-      <main style={{flex: "1 1 0"}} className="flex justify-center items-center p-4 md:py-16">
+      <main style={{ flex: "1 1 0" }} className="flex justify-center items-center p-4 md:py-16">
         <Card className="w-full max-w-3xl mx-auto">
-          <CardHeader>
-            <CardTitle className="text-3xl text-center">Checkout</CardTitle>
-            <Image src="/appmax.webp" alt="Appmax" width={744} height={154} className="w-1/3 m-auto" />
-            <CardDescription className="text-center">Esta página está protegida por todas as etapas de segurança da Appmax.</CardDescription>
-          </CardHeader>
-          <CardContent className="grid gap-6">
-            <div>
-              <h3 className="text-lg font-semibold mb-2">Suas solicitações</h3>
-              <ul className="space-y-2">
-                {cartItems.map((item, i) => (
-                  <li key={i} className="flex justify-between items-center text-sm">
-                    <span>{item.name}</span>
-                    <span>{item.price.toFixed(2)}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="flex justify-between w-full text-lg font-semibold">
-              <span>Total:</span>
-              <p className="text-end">
-                { totalCart === discountedTotal
-                  ?
-                    <span>R$  {totalCart.toFixed(2)}</span> 
-                  : 
-                    <>
-                      <span className="text-white rounded-md bg-green-600 py-1 px-2 animate-pulse">R$ {discountedTotal.toFixed(2)}</span><br />
-                      <span className="text-sm line-through">R$ {totalCart.toFixed(2)}</span>
-                    </>
-                }
-              </p>
-            </div>
-            <hr />
-            <div>
-              <h3 className="text-lg font-semibold mb-2">Método de pagamento</h3>
-              <RadioGroup
-                defaultValue="card"
-                onValueChange={(value) => setPaymentMethod(value)}
-                className="grid grid-cols-2 gap-4 mb-4"
-              >
-                <div>
-                  <RadioGroupItem value="card" id="card" className="peer sr-only" />
-                  <Label
-                    htmlFor="card"
-                    className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                  >
-                    <CreditCard className="mb-3 h-6 w-6" />
-                    Cartão de crédito
-                  </Label>
-                </div>
-                <div className="relative">
-                  <RadioGroupItem value="bank" id="bank" className="peer sr-only" />
-                  <Label htmlFor="bank"
-                    className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                  >
-                    <PixIcon />
-                    Pix
-                  </Label>
-                  <Badge className="absolute top-[-0.8rem] right-[5px] bg-green-600 text-[0.8rem]">5% OFF</Badge>
-                </div>
-              </RadioGroup>
-              {paymentMethod === "card" ? <CardPaymentFields /> : <BankTransferFields amount={discountedTotal}/>}
-            </div>
-          </CardContent>
+          <Suspense fallback={<div>Carregando...</div>}>
+            <CardHeader>
+              <CardTitle className="text-3xl text-center">Checkout</CardTitle>
+              <Image src="/appmax.webp" alt="Appmax" width={744} height={154} className="w-1/3 m-auto" />
+              <CardDescription className="text-center">Esta página está protegida por todas as etapas de segurança da Appmax.</CardDescription>
+            </CardHeader>
+            <CardContent className="grid gap-6">
+              <div>
+                <h3 className="text-lg font-semibold mb-2">Suas solicitações</h3>
+                <ul className="space-y-2">
+                  {cartItems && (
+                    <li className="flex justify-between items-center text-sm">
+                      <span>{cartItems.name}</span>
+                      <span>{cartItems.price.toFixed(2)}</span>
+                    </li>
+                  )}
+                </ul>
+              </div>
+              <div className="flex justify-between w-full text-lg font-semibold">
+                <span>Total:</span>
+                <p className="text-end">
+                  { totalCart === discountedTotal
+                    ?
+                      <span>R$  {totalCart.toFixed(2)}</span> 
+                    : 
+                      <>
+                        <span className="text-white rounded-md bg-green-600 py-1 px-2 animate-pulse">R$ {discountedTotal.toFixed(2)}</span><br />
+                        <span className="text-sm line-through">R$ {totalCart.toFixed(2)}</span>
+                      </>
+                  }
+                </p>
+              </div>
+              <hr />
+              <div>
+                <h3 className="text-lg font-semibold mb-2">Método de pagamento</h3>
+                <RadioGroup
+                  defaultValue="card"
+                  onValueChange={(value) => setPaymentMethod(value)}
+                  className="grid grid-cols-2 gap-4 mb-4"
+                >
+                  <div>
+                    <RadioGroupItem value="card" id="card" className="peer sr-only" />
+                    <Label
+                      htmlFor="card"
+                      className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                    >
+                      <CreditCard className="mb-3 h-6 w-6" />
+                      Cartão de crédito
+                    </Label>
+                  </div>
+                  <div className="relative">
+                    <RadioGroupItem value="bank" id="bank" className="peer sr-only" />
+                    <Label htmlFor="bank"
+                      className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                    >
+                      <PixIcon />
+                      Pix
+                    </Label>
+                    <Badge className="absolute top-[-0.8rem] right-[5px] bg-green-600 text-[0.8rem]">5% OFF</Badge>
+                  </div>
+                </RadioGroup>
+                {paymentMethod === "card" ? <CardPaymentFields /> : <BankTransferFields amount={discountedTotal} />}
+              </div>
+            </CardContent>
+          </Suspense>
         </Card>
       </main>
       <FooterCKO />

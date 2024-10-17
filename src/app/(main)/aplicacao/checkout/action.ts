@@ -24,11 +24,57 @@ export async function getCheckoutVisas(visaId: string[]) {
   if (visas) return visas
 }
 
+export async function getCheckoutVisasRemember(visaId: string) {
+  const visas = await prisma.visa.findUnique({
+    where: {
+      id: visaId
+    },
+    select: {
+      id: true,
+      name: true,
+      surname: true,
+      email: true,
+      telephone: true,
+      stayInNZ: true,
+      codeETA: true,
+    }
+  })
+
+  if (visas) return visas
+}
+
 export async function getInstallmentsAppmax(quantity: number, visaIds: string[]) {
   try {
     let visas = await getCheckoutVisas(visaIds)
 
     const hasStayInNZ = visas?.some(visa => visa.stayInNZ)
+    
+    const reqInstallments = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL_APPMAX}/payment/installments`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        "access-token": process.env.APPMAX_ACCESS_TOKEN,
+        "installments": 6,
+        "total": quantity * (hasStayInNZ ? 297 + 350 : 297),
+        "format": 2 
+      })
+    })
+
+    const response = await reqInstallments.json()
+
+    return response
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+export async function getInstallmentsAppmaxRemember(quantity: number, visaId: string) {
+  try {
+    let visa = await getCheckoutVisasRemember(visaId)
+
+    const hasStayInNZ = visa?.stayInNZ
     
     const reqInstallments = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL_APPMAX}/payment/installments`, {
       method: "POST",
@@ -67,6 +113,20 @@ export async function getPayment(id: string) {
     })
 
     return payment
+  } catch(e) {
+    return null
+  }
+}
+
+export async function getRememberVisa(id: string) {
+  try {
+    const visa = prisma.visa.findUnique({
+      where: {
+        id
+      }
+    })
+
+    return visa
   } catch(e) {
     return null
   }

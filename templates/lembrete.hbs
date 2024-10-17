@@ -141,7 +141,7 @@
                     <td align="center" valign="top" style="padding:0;Margin:0;width:560px">
                     <table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
                       <tr>
-                        <td align="left" class="es-m-p15" style="padding:0;Margin:0;padding-top:15px;padding-bottom:15px"><h2 class="b_title" style="Margin:0;line-height:34px;mso-line-height-rule:exactly;font-family:Lato, sans-serif;font-size:28px;font-style:normal;font-weight:bold;color:#191818;text-align:center">PAGAMENTO NEGADO</h2></td>
+                        <td align="left" class="es-m-p15" style="padding:0;Margin:0;padding-top:15px;padding-bottom:15px"><h2 class="b_title" style="Margin:0;line-height:34px;mso-line-height-rule:exactly;font-family:Lato, sans-serif;font-size:28px;font-style:normal;font-weight:bold;color:#191818;text-align:center">Seu pagamento está pendente</h2></td>
                       </tr>
                       <tr>
                         <td align="left" style="padding:0;Margin:0;padding-top:10px;padding-bottom:15px;padding-right:15px;font-size:0">
@@ -162,13 +162,31 @@
                     <td align="left" style="padding:0;Margin:0;width:600px">
                     <table cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:#ffffff" role="presentation">
                       <tr>
-                        <td align="left" style="padding:0;Margin:0;padding-bottom:10px;padding-left:20px;padding-right:20px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:Lato, sans-serif;line-height:24px;color:#191818;font-size:16px">
-                          O pagamento referente ao código de acompanhamento abaixo foi recusado.<br>
-                          Código: <b>{{codeETA}}</b>
-                        </p></td>
-                      </tr>
-                      <tr>
-                        <td align="left" style="padding:0;Margin:0;padding-bottom:10px;padding-left:20px;padding-right:20px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:Lato, sans-serif;line-height:24px;color:#191818;font-size:16px">Ao clicar no link abaixo, você será redirecionado ao checkout para tentar fazer um novo pagamento.</p><p style="margin:20px 0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:Lato, sans-serif;line-height:24px;color:#191818;font-size:16px"><a href="https://etanz.com.br/aplicacao/checkout/outra-tentativa?paymentId={{paymentId}}" style="font-family:Lato, sans-serif;-webkit-text-size-adjust: 100%; -webkit-tap-highlight-color: transparent; letter-spacing: 0.05rem; box-sizing: border-box; line-height: 1.5; text-align: center; text-decoration: none; vertical-align: middle; cursor: pointer; user-select: none; font-size: 12px;border-radius: .25rem; transition: none; color: #fff; background-color: #009EE3; padding: .75rem 1.25rem!important; font-weight: 700!important; text-transform: uppercase!important; min-width: 270px; width: 50%; margin: .5rem 0">Pagar novamente</a></p></td>
+                        <td align="left" style="padding:0;Margin:0;padding-bottom:10px;padding-left:20px;padding-right:20px">
+                          <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:Lato, sans-serif;line-height:24px;color:#191818;font-size:16px">
+                            Prezado(a) {{fullname}},
+                            <br><br>
+                            Recebemos a solicitação de aplicação da sua NZeTA Nova Zelândia (Código de acompanhamento {{codeETA}}).
+                            <br><br>
+                            No entanto, ainda não identificamos o pagamento das taxas de aplicação.
+                            <br><br>
+                            Todos os dias nós identificamos erros graves de preenchimento de nossos clientes, que iriam complicar a emissão da NZeTA. Nós te ajudamos com isso.
+                            <br><br>
+                            Além disso, 99% dos nossos clientes tem sua NZeTA aprovada em poucas horas.
+                            <br><br>
+                            O valor de R$ 297,00 já inclui a taxa do governo neozelandes e a nossa prestação de serviços para assessoria individual para aplicação da sua NZeTA.
+                            <br><br>
+                            Caso você queira prosseguir com a aplicação da sua NZeTA Nova Zelândia contando com nossa assessoria, responda este e-mail para que possamos regularizar a situação da sua aplicação.
+                            <br><br>
+                            Ou, se desejar, clique no botão abaixo para retornar ao checkout.
+                            <br><br>
+                            <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:Lato, sans-serif;line-height:24px;color:#191818;font-size:16px">
+                              <a href="https://etanz.com.br/aplicacao/checkout/lembrete?visaId={{visaId}}" style="-webkit-text-size-adjust: 100%; -webkit-tap-highlight-color: transparent; letter-spacing: 0.05rem; box-sizing: border-box; line-height: 1.5; text-align: center; text-decoration: none; vertical-align: middle; cursor: pointer; user-select: none; border: 1px solid transparent; font-size: 1rem;border-radius: .25rem; transition: none; color: #fff; background-color: #198754; border-color: #198754; padding: .75rem 1.25rem!important; font-weight: 700!important; text-transform: uppercase!important; display: flex; justify-content: center;align-items: center; min-width: 270px; width: 50%; margin: .5rem 0">
+                                Finalizar pagamento
+                              </a>
+                            </p>
+                          </p>
+                        </td>
                       </tr>
                       <tr>
                         <td align="left" style="padding:0;Margin:0;padding-bottom:10px;padding-left:20px;padding-right:20px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:Lato, sans-serif;line-height:24px;color:#191818;font-size:16px">

@@ -35,7 +35,7 @@ export default function Home() {
                 <p>A NZeTA (New Zealand Electronic Travel Authorization) é um documento eletrônico exigido para viajantes elegíveis que desejam entrar na Nova Zelândia por via aérea.</p>
               </div>
               <div>
-                <h2 className="text-3xl font-bold mb-2">Eu preciso ter para entrar na Nova Zelândia?</h2>
+                <h2 className="text-3xl font-bold mb-2">Eu preciso ter uma NZeTA para entrar na Nova Zelândia?</h2>
                 <p>A NZeTA é obrigatória para <b>brasileiros e estrangeiros elegíveis</b> à obtenção da Autorização Eletrônica de Viagem, que estão viajando a passeio, para estudos (com duração máxima de 3 meses) ou para negócios. A NZeTA é válida por até dois anos ou até que o passaporte do viajante expire, o que ocorrer primeiro.</p>
               </div>
               <div>
@@ -81,7 +81,7 @@ export default function Home() {
                   <AirplaneTilt size={60} className="text-nzgrey"/>
                 </div>
                 <div>
-                  <h3 className="text-2xl font-bold mb-2">Receba seu eTA</h3>
+                  <h3 className="text-2xl font-bold mb-2">Receba sua NZeTA</h3>
                   <p className="text-nzgrey">Após aprovado, você receberá o seu documento de viagem no e-mail informado no formulário, em até <b>12 horas</b>.</p>
                 </div>
               </div>
@@ -100,7 +100,7 @@ export default function Home() {
           <section>
             <div className="container mx-auto max-w-screen-md py-16 px-5 text-center">
               <h2 className="text-4xl font-bold mb-2">Planejando sua viagem para a Nova Zelândia?</h2>
-              <p className="text-zinc-800 mb-8">Preencha o formulário de solicitação do eTA e esteja pronto para explorar a incrível beleza da Nova Zelândia. Não perca tempo, garanta sua eTA antes da viagem!</p>
+              <p className="text-zinc-800 mb-8">Preencha o formulário de solicitação da NZeTA e esteja pronto para explorar a incrível beleza da Nova Zelândia. Não perca tempo, garanta sua NZeTA antes da viagem!</p>
               <Link href="/aplicacao/dados"><p className="inline-block bg-green-600 text-white p-3 font-bold uppercase rounded">Solicitar autorização</p></Link>
             </div>
           </section>

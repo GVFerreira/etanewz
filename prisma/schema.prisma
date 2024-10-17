@@ -9,13 +9,12 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
-  // url      = env("DATABASE_URL")
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
 }
 
 model User {
-  id       String @id @default(uuid())
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
   name     String
   email    String @unique
   password String
@@ -24,7 +23,7 @@ model User {
 }
 
 model Visa {
-  id                      String   @id @default(uuid())
+  id                      String   @id @default(auto()) @map("_id") @db.ObjectId
   passportNationality     String   @map("passport_nationality")
   passportIssuer          String   @map("passport_issuer")
   passportNumber          String   @map("passport_number")
@@ -60,7 +59,7 @@ model Visa {
 }
 
 model Payment {
-  id                String  @id @default(uuid())
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
   idClient          String  @map("id_client")
   idOrder           String  @map("id_order")
   transactionAmount Float   @map("transaction_amount")
@@ -80,9 +79,9 @@ model Payment {
 }
 
 model VisaPayment {
-  id        String @id @default(uuid())
-  paymentId String
-  visasId   String
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  paymentId String @db.ObjectId
+  visasId   String @db.ObjectId
 
   payment Payment @relation(fields: [paymentId], references: [id])
   visas   Visa    @relation(fields: [visasId], references: [id])

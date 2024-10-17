@@ -68,7 +68,7 @@ export async function POST(req: Request) {
           'access-token': process.env.APPMAX_ACCESS_TOKEN,
           'products': [{
             'sku': '835103',
-            'name': 'Assessoria - eTA Nova Zelândia',
+            'name': 'Assessoria - NZeTA Nova Zelândia',
             'qty': quantity,
             'price': amount,
             'digital_product': 1
