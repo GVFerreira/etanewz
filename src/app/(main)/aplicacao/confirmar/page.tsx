@@ -22,7 +22,6 @@ import Header from "@/app/components/header"
 import Footer from "@/app/components/footer"
 import { Checkbox } from "@/components/ui/checkbox"
 import { toast } from "@/components/ui/use-toast"
-import { set } from "date-fns"
 
 type VisaData = {
   passportNationality: string

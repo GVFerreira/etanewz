@@ -37,5 +37,6 @@ next-env.d.ts
 
 public/uploads/*
 !public/uploads/attachments/.gitkeep
+!public/uploads/eta/.gitkeep
 
 prisma/dev.db

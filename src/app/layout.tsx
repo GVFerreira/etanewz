@@ -10,7 +10,7 @@ const lato = Lato({
 })
 
 export const metadata: Metadata = {
-  title: "eTA Nova Zelândia",
+  title: "NZeTA Nova Zelândia",
   description: "Com destino à Oceania."
 }
 

@@ -51,6 +51,7 @@ model Visa {
   statusETA               String?  @default("Em análise") @map("status_eta")
   attachmentPath          String?  @map("attachment_path")
   imagePath               String?
+  message                 String?
   createdAt               DateTime @default(now()) @map("created_at")
 
   payments VisaPayment[]

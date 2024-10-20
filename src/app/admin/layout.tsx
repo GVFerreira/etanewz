@@ -20,6 +20,14 @@ import {
 
 // import { auth } from '@/services/auth'
 
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Admin - NZeTA Nova Zelândia",
+}
+
+export const revalidate = 0
+
 export default async function Layout({ children }: PropsWithChildren) {
   // const session = await auth()
 

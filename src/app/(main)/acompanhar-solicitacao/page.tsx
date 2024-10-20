@@ -4,16 +4,18 @@ import { getVisas } from "./action"
 import dynamic from "next/dynamic"
 import Link from "next/link"
 
-import { SubmitHandler, useForm } from "react-hook-form"
-import { useState } from "react"
-import { Search } from "lucide-react"
 const Select = dynamic(() => import('react-select'), { ssr: false })
+import { SubmitHandler, useForm } from "react-hook-form"
+import { Search } from "lucide-react"
+import { useState } from "react"
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button, buttonVariants } from "@/components/ui/button"
+import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
+
 import Footer from "@/app/components/footer"
 import Header from "@/app/components/header"
 
@@ -28,6 +30,8 @@ interface Visa {
   status: string
   transactionAmount: number
   statusETA: string
+  message?: string
+  attachmentPath?: string
   createdAt: Date
 }
 
@@ -45,6 +49,8 @@ export default function AcompanharSolicitacao() {
       status: visa.payments[0]?.payment.status,
       transactionAmount: visa.payments[0]?.payment.transactionAmount || 0,
       statusETA: visa.statusETA,
+      message: visa.message,
+      attachmentPath: visa.attachmentPath,
       createdAt: visa.createdAt
     })) || null
 
@@ -113,11 +119,27 @@ export default function AcompanharSolicitacao() {
                               ml-1 uppercase 
                             `}
                           >
-                            {visa.status}
+                            {visa.status ? visa.status : "Sem pagamento"}
                           </Badge>
                         </div>
-                        <p>Valor pago: R$ {visa.transactionAmount.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+                        <p>Valor: R$ {visa.transactionAmount.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
                         <p>Status da aplicação: {visa.statusETA}</p>
+                        { visa.message && (
+                          <div className="my-2">
+                            <p>Mensagem para você:</p>
+                            <Textarea value={visa.message} className="w-full" disabled />
+                          </div>
+                        )}
+                        { visa.attachmentPath && (
+                          <div className="my-2">
+                            <p>Faça o download do seu documento</p>
+                            <Button>
+                              <a href={visa.attachmentPath} download>
+                                Download do NZeTA
+                              </a>
+                            </Button>
+                          </div>
+                        )}
                         <hr className="my-4"/>
                         <p>Solicitação enviada em: {new Date(visa.createdAt).toLocaleString()}</p>
                       </CardContent>

@@ -9,14 +9,15 @@ interface CustomMailOptions extends nodemailer.SendMailOptions {
 }
 
 export async function POST(req: Request) {
-  const { template, bcc, subject, email, context } = await req.json()
+  const { template, bcc, subject, email, context, attachments } = await req.json()
 
   const mailOptions: CustomMailOptions = {
-    from: 'eTA NZ <noreply@etanz.com.br>',
+    from: 'NZeTA Nova Zelândia <noreply@etanz.com.br>',
     to: email,
     bcc,
     subject,
     template,
+    attachments,
     context,
   }
 
