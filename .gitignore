@@ -36,7 +36,9 @@ yarn-error.log*
 next-env.d.ts
 
 public/uploads/*
-!public/uploads/attachments/.gitkeep
-!public/uploads/eta/.gitkeep
+!public/uploads/.gitkeep
+
+public/eta/*
+!public/eta/.gitkeep
 
 prisma/dev.db
