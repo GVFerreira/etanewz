@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Realiza a detecção de rostos
-    const [faceResult] = await client.faceDetection(imagePath)
+    const [faceResult] = await client.faceDetection(imagePath.replace(/^public\//, ''))
     const faces = faceResult.faceAnnotations || []
 
     // Validação de rostos
@@ -66,7 +66,7 @@ export async function POST(req: NextRequest) {
     })
 
     // Realiza a detecção de objetos
-    const [objectResult] = await client.objectLocalization(imagePath)
+    const [objectResult] = await client.objectLocalization(imagePath.replace(/^public\//, ''))
     const objects = objectResult?.localizedObjectAnnotations || []
 
     // Validação de objetos
@@ -77,7 +77,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Realiza a detecção de rótulos
-    const [labelResult] = await client.labelDetection(imagePath)
+    const [labelResult] = await client.labelDetection(imagePath.replace(/^public\//, ''))
     const labels = labelResult?.labelAnnotations || []
 
     // Validação de rótulos
@@ -92,7 +92,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Realiza a detecção de propriedades de imagem
-    const [colorResult] = await client.imageProperties(imagePath)
+    const [colorResult] = await client.imageProperties(imagePath.replace(/^public\//, ''))
     const colors = colorResult?.imagePropertiesAnnotation?.dominantColors?.colors || []
 
     // Validação de propriedades de imagem

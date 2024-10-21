@@ -64,8 +64,7 @@ export default function SolicitationsTable({ visas }: { visas: any[] }) {
               <div>
                 { visa.imagePath ?
                   <>
-                    <Image src={`${visa.imagePath}`} width={300} height={300} alt={visa.name + visa.surname} className="w-full max-w-[100px] aspect-[3/4] object-cover max-h-xs border-2 border-gray-300" />
-                    
+                    <Image src={`${process.env.NEXT_PUBLIC_APP_URL}/${visa.imagePath}`} width={300} height={300} alt={visa.name + visa.surname} className="w-full max-w-[100px] aspect-[3/4] object-cover max-h-xs border-2 border-gray-300" />
                   </>
                   :
                   <div className="flex max-w-[180px] justify-center items-center aspect-[3/4] border-2 bg-gray-300">
@@ -158,9 +157,9 @@ export default function SolicitationsTable({ visas }: { visas: any[] }) {
                               <h3 className="text-lg font-bold">Informações do aplicante</h3>
                               { selectedVisa.imagePath ? 
                                 <>
-                                  <Image src={`${selectedVisa.imagePath}`} width={300} height={300} alt={selectedVisa.name + " " + selectedVisa.surname} className="w-[180px] aspect-[3/4] object-cover border-2 border-gray-300" />
+                                  <Image src={`${process.env.NEXT_PUBLIC_APP_URL}/${selectedVisa.imagePath}`} width={300} height={300} alt={selectedVisa.name + " " + selectedVisa.surname} className="w-[180px] aspect-[3/4] object-cover border-2 border-gray-300" />
                                   <Button>
-                                    <a href={selectedVisa.imagePath} download>
+                                    <a href={`${process.env.NEXT_PUBLIC_APP_URL}/${selectedVisa.imagePath}`} download>
                                       Download da imagem
                                     </a>
                                   </Button>

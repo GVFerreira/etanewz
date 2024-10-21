@@ -173,7 +173,7 @@ export default function Confirm () {
                 <hr />
                 <CardContent className="py-4">
                   <Image
-                    src={initialData?.imagePath as string}
+                    src={`/${initialData?.imagePath}`}
                     width={300}
                     height={300}
                     alt={initialData?.name as string}
