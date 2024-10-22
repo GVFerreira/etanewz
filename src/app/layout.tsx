@@ -1,5 +1,6 @@
-import type { Metadata } from "next"
+import { GoogleTagManager } from '@next/third-parties/google'
 import { Lato } from 'next/font/google'
+import type { Metadata } from "next"
 import "./globals.css"
 
 import { Toaster } from "@/components/ui/toaster"
@@ -16,11 +17,23 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pt-br" className={lato.className}>
-      <body className="flex flex-col min-h-screen bg-nzwhite">
-        {children}
-        <Toaster />
-      </body>
-    </html>
+    <>
+      <html lang="pt-br" className={lato.className}>
+        <GoogleTagManager gtmId="WBH7K4CB" />
+        <body className="flex flex-col min-h-screen bg-nzwhite">
+          <noscript>
+            <iframe
+              src="https://www.googletagmanager.com/ns.html?id=GTM-WBH7K4CB"
+              height="0"
+              width="0"
+              style={{ display: 'none', visibility: 'hidden' }}
+            >
+            </iframe>
+          </noscript>
+          {children}
+          <Toaster />
+        </body>
+      </html>
+    </>
   )
 }

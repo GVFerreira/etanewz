@@ -113,3 +113,18 @@ export async function sendMessage(data: {id: string, message: string}) {
     return null
   }
 }
+
+export async function deleteVisa(id: string) {
+  try {
+    const visa = await prisma.visa.delete({
+      where: {
+        id
+      }
+    })
+
+    return visa
+  } catch(e) {
+    console.log(e)
+    return null
+  }
+}

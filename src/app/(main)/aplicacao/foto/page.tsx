@@ -190,7 +190,8 @@ export default function Photo() {
                       <Button className="mt-4" type="button" onClick={capturePhoto}>Tirar Foto</Button>
                     </TabsContent>
                     <TabsContent value="photo" className="w-full">
-                      <Input type="file" accept="image/*" onChange={handleFileChange} />
+                      <p className="text-center">Clique abaixo para adicionar uma imagem da sua galeria de fotos.</p>
+                      <Input className="hover:cursor-pointer animate-pulse duration-5000 bg-gray-300" type="file" accept="image/*" onChange={handleFileChange} />
                     </TabsContent>
                   </Tabs>
 

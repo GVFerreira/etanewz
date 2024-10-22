@@ -1,12 +1,12 @@
 'use client'
 
 import { useRouter } from "next/navigation"
-import { sendMessage, updateEmail, updateStatus } from "../actions"
+import { deleteVisa, sendMessage, updateEmail, updateStatus } from "../actions"
 import dynamic from 'next/dynamic'
 import Image from "next/image"
 
 const Select = dynamic(() => import('react-select'), { ssr: false })
-import { Eye, MessageSquare, Pencil, Trash2, X } from "lucide-react"
+import { Eye, Pencil, Trash2, X } from "lucide-react"
 import { useForm, SubmitHandler } from "react-hook-form"
 import { useState } from "react"
 
@@ -17,6 +17,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
+  AlertDialogCancel
 } from "@/components/ui/alert-dialog"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
@@ -51,7 +52,31 @@ interface sendMessage {
 export default function SolicitationsTable({ visas }: { visas: any[] }) {
   const [selectedVisa, setSelectedVisa] = useState<any | null>(null)
   const [updateProcess, setUpdateProcess] = useState<any | null>(null)
+  const [deletedVisa, setDeletedVisa] = useState<any | null>(null)
 
+  const router = useRouter()
+
+  const handleDelete = async (id: string) => {
+    try {
+      await deleteVisa(id)
+      setDeletedVisa(null)
+      router.refresh()
+      toast({
+        title: "Deletado com sucesso",
+        description: "Este cliente foi permanentemente deletado"
+      })
+
+
+    } catch(e) {
+      console.log(e)
+      toast({
+        variant: "destructive",
+        title: "Erro",
+        description: "Ocorreu um erro ao deletar esta solicitação"
+      })
+    }
+  }
+  
   return (
     <div>
         {visas.map((visa: any, index: number) => (
@@ -110,6 +135,7 @@ export default function SolicitationsTable({ visas }: { visas: any[] }) {
                               <TabsTrigger value="email">Atualizar e-mail</TabsTrigger>
                               <TabsTrigger value="message">Enviar mensagem</TabsTrigger>
                             </TabsList>
+
                             <TabsContent value="update">
                               <UpdateStatus data={{
                                 id: updateProcess.id,
@@ -137,6 +163,7 @@ export default function SolicitationsTable({ visas }: { visas: any[] }) {
                       </AlertDialogDescription>
                     </AlertDialogContent>
                   </AlertDialog>
+
                   <AlertDialog open={selectedVisa?.id === visa.id} onOpenChange={() => setSelectedVisa(visa)}>
                     <AlertDialogTrigger asChild>
                       <Eye className="size-6 text-blue-500 cursor-pointer" />
@@ -511,7 +538,33 @@ export default function SolicitationsTable({ visas }: { visas: any[] }) {
                       </AlertDialogDescription>
                     </AlertDialogContent>
                   </AlertDialog>
-                  <Trash2 className="size-6 text-red-500"/>
+                  
+                  <AlertDialog open={deletedVisa?.id === visa.id} onOpenChange={() => setDeletedVisa(visa)}>
+                    <AlertDialogTrigger asChild>
+                      <Trash2 className="size-6 text-red-500 cursor-pointer"/>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                      <AlertDialogHeader className="pb-6 border-b">
+                        <div className="flex justify-between items-center">
+                          <AlertDialogTitle className="text-2xl font-bold">Tem certeza?</AlertDialogTitle>
+                          <Button variant="ghost" size="icon" onClick={() => setDeletedVisa(null)}>
+                            <X className="h-6 w-6" />
+                          </Button>
+                        </div>
+                      </AlertDialogHeader>
+                      <div className="space-y-4">
+                        <h2>Você realmente deseja excluir a solicitação deste cliente?</h2>
+                        { deletedVisa && (
+                          <b>Cliente: {deletedVisa.name + " " + deletedVisa.surname}</b>
+                        )}
+                        <div className="flex flex-row gap-4">
+                          <Button variant="destructive" onClick={() => handleDelete(deletedVisa.id)}>Excluir</Button>
+                          <Button variant="outline" onClick={() => setDeletedVisa(null)}>Cancelar</Button>
+                        </div>
+                      </div>
+                    </AlertDialogContent>
+                  </AlertDialog>
+                  
                 </div>
               </div>
             </div>
