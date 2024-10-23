@@ -19,7 +19,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <>
       <html lang="pt-br" className={lato.className}>
-        <GoogleTagManager gtmId="WBH7K4CB" />
+        <GoogleTagManager gtmId="GTM-WBH7K4CB" />
         <body className="flex flex-col min-h-screen bg-nzwhite">
           <noscript>
             <iframe
