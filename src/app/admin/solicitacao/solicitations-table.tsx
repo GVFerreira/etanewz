@@ -663,7 +663,7 @@ function UpdateStatus({data}: {data: updateStatus}) {
         <Select 
           options={[
             { value: "Em análise", label: "Em análise"},
-            { value: "Recebido pelo Governo da Nova Zelândia", label: "Recebido pelo da Nova Zelândia"},
+            { value: "Recebido pelo Governo da Nova Zelândia", label: "Recebido pelo Governo da Nova Zelândia"},
             { value: "Aprovado", label: "Aprovado"},
             { value: "Recusado", label: "Recusado"},
           ]}
