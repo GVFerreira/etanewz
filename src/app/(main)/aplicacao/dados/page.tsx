@@ -380,6 +380,12 @@ export default function Data () {
                           </div>
                         </RadioGroup>
                       </div>
+                      {/* Exibir aviso de trânsito */}
+                      {returnToAustralia === 'true' && (stayInNZ === 'false' || stayInNZ == null) && (
+                        <p className="text-sm text-yellow-600 md:w-1/2">
+                          <WarningDiamond className="size-4 inline" /> Aviso: Se você escolher esta opção, seu NZeTA será válido apenas para trânsito. Se você planeja sair do aeroporto e entrar na Nova Zelândia, deverá indicar isso agora em sua solicitação NZeTA.<br />Para alterar sua resposta, selecione &apos;Não&apos;.
+                        </p>
+                      )}
                     </div>
                     { returnToAustralia === 'false' && (
                       <div className="space-y-2">
@@ -398,8 +404,9 @@ export default function Data () {
                                 <AlertDialogTrigger asChild>
                                   <RadioGroupItem value="true" id="stay-nz-yes" />
                                 </AlertDialogTrigger>
-                                <AlertDialogContent>
+                                <AlertDialogContent className="mx-auto w-11/12 rounded-lg md:w-full">
                                   <AlertDialogHeader>
+                                    <p className="font-bold text-xl text-red-500">ATENÇÃO!</p>
                                     <AlertDialogTitle>O que é a IVL e quanto custa?</AlertDialogTitle>
                                     <AlertDialogDescription>
                                     Caso sua viagem não seja somente de trânsito e você permaneça na Nova Zelândia, precisará pagar também a Taxa Internacional de Turismo e Conservação da Nova Zelândia (IVL). A IVL corresponde a 100 dólares neozelandeses, ou R$ 350,00.
@@ -420,13 +427,12 @@ export default function Data () {
                             </div>
                           </RadioGroup>
                         </div>
+                        { stayInNZ === 'false' && (
+                          <p className="text-sm text-yellow-600 md:w-1/2">
+                            Se você escolher esta opção, seu NZeTA será válido apenas para trânsito. Se você planeja sair do aeroporto e entrar na Nova Zelândia, você deve indicar isso em sua solicitação de NZeTA e pagar o International Visitor Conservation and Tourism Levy (IVL). Para alterar sua resposta, selecione &quot;Sim, vou permanecer&quot;.
+                          </p>
+                        )}
                       </div>
-                    )}
-                    {/* Exibir aviso de trânsito */}
-                    {returnToAustralia === 'true' && (stayInNZ === 'false' || stayInNZ == null) && (
-                      <p className="text-sm text-yellow-600 md:w-1/2">
-                        <WarningDiamond className="size-4 inline" /> Aviso: Se você escolher esta opção, seu NZeTA será válido apenas para trânsito. Se você planeja sair do aeroporto e entrar na Nova Zelândia, deverá indicar isso agora em sua solicitação NZeTA.<br />Para alterar sua resposta, selecione &apos;Sim&apos;.
-                      </p>
                     )}
                   </CardContent>
                 </Card>

@@ -583,9 +583,9 @@ export default function Confirm () {
                       />
                       <label
                         htmlFor="agreement"
-                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        className="font-bold leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                       >
-                        Eu li e concordo com esta declaração
+                        Eu li e concordo com esta declaração <span className="text-red-500 bold text-xl">*</span>
                       </label>
                     </div>
 
@@ -597,22 +597,22 @@ export default function Confirm () {
                       />
                       <label
                         htmlFor="terms"
-                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        className="font-bold leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                       >
-                        Li e compreendi a Política de Privacidade e os Termos de Uso
+                        Li e compreendi a Política de Privacidade e os Termos de Uso <span className="text-red-500 bold text-xl">*</span>
                       </label>
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
-              <Button className="max-w-60" onClick={(e) => { e.preventDefault(); handleModal(true)}} disabled={isButtonDisabled}>Ir para Pagamento</Button>
+              <Button className="max-w-60" onClick={(e) => { e.preventDefault(); handleModal(true)}} disabled={isButtonDisabled}>{isButtonDisabled ? "Aceitar termos e declaração" : "Ir para Pagamento"}</Button>
             </div>
 
             { modal && (
               <>
                 <div onClick={() => setModal(false)} style={{marginTop: "0px !important"}} className="w-screen h-screen fixed inset-0 bg-black bg-opacity-50 z-40"></div>
-                <Card className="max-w-[600px] w-full h-fit fixed translate-x-1/2 z-50">
+                <Card className="max-w-[600px] w-11/12 rounded-lg md:w-full h-fit fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50">
                   <CardHeader className="flex flex-row items-center justify-between">
                     <h3 className="text-lg leading-[18px] font-bold">Já finalizou suas solicitações?</h3>
                     <Button variant="outline" className="p-2" onClick={() => handleModal(false)}><X/></Button>

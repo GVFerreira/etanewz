@@ -27,6 +27,7 @@ interface CartItem {
   id: string
   name: string
   price: number
+  stayInNz: boolean
 }
 
 interface CardData {
@@ -295,7 +296,8 @@ export default function Checkout() {
           const formattedVisas = visas.map((visa) => ({
             id: visa.id,
             name: `${visa.name} ${visa.surname}`.toUpperCase(),
-            price: hasStayInNZ ? 297 + 350 : 297
+            price: hasStayInNZ ? 297 + 350 : 297,
+            stayInNz: hasStayInNZ
           }))
     
           setCartItems(formattedVisas)
@@ -336,9 +338,15 @@ export default function Checkout() {
               <h3 className="text-lg font-semibold mb-2">Suas solicitações</h3>
               <ul className="space-y-2">
                 {cartItems.map((item, i) => (
-                  <li key={i} className="flex justify-between items-center text-sm">
-                    <span>{item.name}</span>
-                    <span>{item.price.toFixed(2)}</span>
+                  <li key={i} className="space-y-2">
+                    <div className="flex justify-between items-center text-sm">
+                      <span>{item.name.toUpperCase()} - APLICAÇÃO NZeTA</span>
+                      <span>{item.stayInNz ? (item.price - 350.00).toFixed(2) : item.price.toFixed(2)}</span>
+                    </div>
+                    <div className="flex justify-between items-center text-sm">
+                      <span>{(item.name + " - Taxa Turismo e Conservação IVL").toUpperCase()} </span>
+                      <span>{(350.00).toFixed(2)}</span>
+                    </div>
                   </li>
                 ))}
               </ul>

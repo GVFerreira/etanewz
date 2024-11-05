@@ -17,6 +17,7 @@ import ErrorMessages from "@/app/components/error-messages"
 import Header from "@/app/components/header"
 import Footer from "@/app/components/footer"
 import { v4 as uuidv4 } from 'uuid'
+import { ImagePlus } from 'lucide-react'
 
 export default function Photo() {
   const router = useRouter()
@@ -86,6 +87,20 @@ export default function Photo() {
       reader.readAsDataURL(file)
     }
   }
+
+  const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault()
+    const file = event.dataTransfer.files?.[0]
+    if (file) {
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        setImageSrc(reader.result as string)
+      }
+      reader.readAsDataURL(file)
+    }
+  }
+
+  const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => event.preventDefault()
 
   const handleConfirm = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -190,8 +205,22 @@ export default function Photo() {
                       <Button className="mt-4" type="button" onClick={capturePhoto}>Tirar Foto</Button>
                     </TabsContent>
                     <TabsContent value="photo" className="w-full">
-                      <p className="text-center">Clique abaixo para adicionar uma imagem da sua galeria de fotos.</p>
-                      <Input className="hover:cursor-pointer animate-pulse duration-5000 bg-gray-300" type="file" accept="image/*" onChange={handleFileChange} />
+                      <div 
+                        className="flex flex-col items-center justify-center w-full h-40 border-2 border-dotted border-gray-500 hover:cursor-pointer bg-nzwhite rounded-md"
+                        onDrop={handleDrop}
+                        onDragOver={handleDragOver}
+                      >
+                        <label className="flex flex-col items-center justify-center w-full h-full cursor-pointer">
+                          <ImagePlus className="size-12" />
+                          <span className="mt-2 text-gray-600">Arraste a imagem aqui.</span>
+                          <input
+                            type="file"
+                            accept="image/*"
+                            onChange={handleFileChange}
+                            className="hidden"
+                          />
+                        </label>
+                      </div>
                     </TabsContent>
                   </Tabs>
 
