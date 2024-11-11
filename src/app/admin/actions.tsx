@@ -9,6 +9,9 @@ export async function getVisas() {
     },
     include: {
       payments: {
+        orderBy: {
+          createdAt: 'desc'
+        },
         include: {
           payment: true // Adicionando os dados de pagamento
         }

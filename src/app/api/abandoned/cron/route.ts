@@ -1,5 +1,20 @@
+export const dynamic = 'force-dynamic'
+
 import { NextResponse } from 'next/server'
 import { prisma } from '@/services/database'
+import fs from 'fs'
+import path from 'path'
+
+// Função para registrar logs em um arquivo
+function logToFile(message: string) {
+  const logPath = path.join(process.cwd(), 'abandoned-log.txt')
+  const timestamp = new Date().toLocaleString()
+  const logMessage = `[${timestamp}] ${message}\n`
+  
+  fs.appendFile(logPath, logMessage, (err) => {
+    if (err) console.error('Erro ao gravar no arquivo de log:', err)
+  })
+}
 
 async function getVisas() {
   const now = new Date()
@@ -31,13 +46,14 @@ async function getVisas() {
   
     if (visas) return visas
   } catch(e) {
-    console.log(e)
+    logToFile(`Erro ao buscar visas: ${e}`)
     return null
   }
 }
 
 export async function GET() {
   const visas = await getVisas()
+  logToFile('Script de verifição de checkout abandonado')
 
   if (visas) {
     for (const visa of visas) {
@@ -57,13 +73,19 @@ export async function GET() {
             }
           })
         })
+        logToFile(`Email enviado para ${visa.email} com ID de aplicação ${visa.id}`)
       } catch(e) {
-        console.log(e)
+        logToFile(`Erro ao enviar email para ${visa.email}: ${e}`)
       }
     }
   }
-  console.log(`Script de verifição de checkout abandonado: ${new Date().toLocaleString()}`)
+
   return NextResponse.json({
     message: `Script de verifição de checkout abandonado: ${new Date().toLocaleString()}`
+  },
+  { 
+    headers: {
+      'Cache-Control': 'no-store' 
+    }
   })
 }

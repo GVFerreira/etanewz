@@ -39,9 +39,9 @@ async function updatePayment(data: Data) {
 }
 
 export async function POST(req: Request) {
-  const { body } = await req.json()
+  const body = await req.json()
 
-  const payment = await getPayment(body.data.id)
+  const payment = await getPayment(String(body.data.id))
 
   if (!payment) return NextResponse.json({ message: 'Pagamento não encontrado' }, { status: 404 })
 

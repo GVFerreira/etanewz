@@ -86,6 +86,7 @@ export default function SolicitationsTable({ visas }: { visas: any[] }) {
 
   useEffect(() => {
     let results = visas
+    console.log(visas)
     
     // Busca
     if (search) {
@@ -125,12 +126,12 @@ export default function SolicitationsTable({ visas }: { visas: any[] }) {
   
   return (
     <div className="p-2">
+      {/* FILTERS, SORTING AND PAGINATION */}
       <div className="grid grid-cols-5 gap-12 my-4">
         <div>
           <Label>Busque uma solicitação:</Label>
           <Input className="bg-white w-full" value={search} onChange={handleSearchChange} />
         </div>
-
         <div>
           <Label>Status da aplicação:</Label>
           <Select
@@ -210,7 +211,15 @@ export default function SolicitationsTable({ visas }: { visas: any[] }) {
               </div>
               <div>
                 <p><b>Status aplicação:</b> {visa.statusETA}</p>
-                <p><b>Pagamento:</b> {visa.payments[0]?.payment[0]?.status ? visa.payments[0]?.payment[0]?.status : "Sem pagamento" }</p>
+                <p><b>Pagamento:</b> {visa.payments[0]?.payment.status ? visa.payments[0]?.payment.status : "Sem pagamento" }</p>
+                {/* <p>
+                  <b>Pagamento:</b> 
+                  { 
+                    visa.payments[0].map((payment: any, i: number) => (
+                      <span key={i}>{payment.status}</span>
+                    ))
+                  }
+                </p> */}
               </div>
             </div>
             <div>

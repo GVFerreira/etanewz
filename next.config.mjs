@@ -9,7 +9,20 @@ const nextConfig = {
     ]
   },
   images: {
-    domains: ['localhost', 'etanz.com.br'], // Adicione os domínios permitidos aqui
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '3010',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'etanz.com.br',
+        port: '',
+        pathname: '/**',
+      },
+    ],
   },
 }
 

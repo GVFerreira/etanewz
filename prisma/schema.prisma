@@ -80,9 +80,10 @@ model Payment {
 }
 
 model VisaPayment {
-  id        String @id @default(auto()) @map("_id") @db.ObjectId
-  paymentId String @db.ObjectId
-  visasId   String @db.ObjectId
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  paymentId String   @db.ObjectId
+  visasId   String   @db.ObjectId
+  createdAt DateTime @default(now()) @map("created_at")
 
   payment Payment @relation(fields: [paymentId], references: [id])
   visas   Visa    @relation(fields: [visasId], references: [id])

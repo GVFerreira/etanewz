@@ -23,6 +23,7 @@ import { Badge } from "@/components/ui/badge"
 
 import HeaderCKO from "@/app/components/header-cko"
 import FooterCKO from "@/app/components/footer-cko"
+import ExitIntent from "@/app/components/exit-intent"
 
 interface CartItem {
   id: string
@@ -336,6 +337,7 @@ export default function Checkout() {
   return (
     <div className="flex flex-col min-h-screen">
       <HeaderCKO />
+      <ExitIntent />
       <main style={{ flex: "1 1 0" }} className="flex justify-center items-center p-4 md:py-16">
         <Card className="w-full max-w-3xl mx-auto">
           <Suspense fallback={<div>Carregando...</div>}>
