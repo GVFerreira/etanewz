@@ -103,7 +103,6 @@ function CardPaymentFields() {
   const handleYearExpire = (selectedOption: any) => setValue('yearExpire', selectedOption.value)
   const handleInstallments = (selectedOption: any) => setValue('installments', selectedOption.value)
 
-
   const handleCardPayment: SubmitHandler<CardData> = async (data) => {
     try {
       const payment = await fetch('/api/checkout/card', {
@@ -344,10 +343,12 @@ export default function Checkout() {
                       <span>{item.name.toUpperCase()} - APLICAÇÃO NZeTA</span>
                       <span>{item.stayInNz ? (item.price - 350.00).toFixed(2) : item.price.toFixed(2)}</span>
                     </div>
-                    <div className="flex justify-between items-center text-sm">
-                      <span>{(item.name + " - Taxa Turismo e Conservação IVL").toUpperCase()} </span>
-                      <span>{(350.00).toFixed(2)}</span>
-                    </div>
+                    { item.stayInNz && (
+                      <div className="flex justify-between items-center text-sm">
+                        <span>{(item.name + " - Taxa Turismo e Conservação IVL").toUpperCase()} </span>
+                        <span>{(350.00).toFixed(2)}</span>
+                      </div>
+                    )}
                   </li>
                 ))}
               </ul>

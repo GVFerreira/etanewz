@@ -86,7 +86,6 @@ export default function SolicitationsTable({ visas }: { visas: any[] }) {
 
   useEffect(() => {
     let results = visas
-    console.log(visas)
     
     // Busca
     if (search) {
