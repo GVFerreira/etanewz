@@ -111,7 +111,7 @@ export default function Photo() {
       if (imageSrc) {
         const blob = await (await fetch(imageSrc)).blob()
         const formData = new FormData()
-        formData.append('file', blob, `${uuidv4()}.png`)
+        formData.append('file', blob, `${uuidv4()}.jpg`)
 
         // Primeiro, faça o upload da imagem
         const uploadResponse = await fetch('/api/upload-photo', {

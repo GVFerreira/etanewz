@@ -360,7 +360,7 @@ export default function Data () {
                     </div>
                     <div className="space-y-2">
                       <Label>
-                        Você é residente permanente na Austrália e tem um visto que permite retornar à Austrália? <Required/>
+                        Você é um residente permanente australiano, com um visto que lhe permite retornar à Austrália? <Required/>
                         <Tip content='Selecione "Sim" se você tiver um visto de residente permanente australiano válido ou um visto de retorno de residente australiano e as condições de viagem do visto que permitem retornar à Austrália. Caso contrário, selecione "Não".' />
                       </Label>
                       <div className="mt-2">
@@ -371,7 +371,25 @@ export default function Data () {
                           onChange={(e: any) => handleRadioReturnToAustralia(e.target.value)}
                         >
                           <div className="flex items-center space-x-2">
-                            <RadioGroupItem value="true" id="returnToAustralia-one" />
+                            <AlertDialog>
+                              <AlertDialogTrigger asChild>
+                                <RadioGroupItem value="true" id="returnToAustralia-one" />
+                              </AlertDialogTrigger>
+                              <AlertDialogContent className="mx-auto w-11/12 rounded-lg md:w-full">
+                                <AlertDialogHeader>
+                                  <p className="font-bold text-xl text-red-500">ATENÇÃO!</p>
+                                  <AlertDialogTitle>Você tem certeza?</AlertDialogTitle>
+                                  <AlertDialogDescription>
+                                  Ao selecionar esta opção, seu NZeTA será válido apenas para fins de trânsito. Se pretende sair do aeroporto e entrar na Nova Zelândia, você precisa indicar isso agora em sua solicitação de NZeTA. <br />Para modificar sua resposta, escolha a opção &quot;Não&quot;.
+                                  </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                  <AlertDialogCancel className={buttonVariants({variant: "default"}) + ` hover:text-gray-200`}>
+                                      Compreendo
+                                  </AlertDialogCancel>
+                                </AlertDialogFooter>
+                              </AlertDialogContent>
+                            </AlertDialog>
                             <Label htmlFor="returnToAustralia-one">Sim</Label>
                           </div>
                           <div className="flex items-center space-x-2">
