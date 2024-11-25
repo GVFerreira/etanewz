@@ -16,13 +16,13 @@ export const POST = async (req: any, res: any) => {
   const filename =  file.name.replaceAll(" ", "_")
 
   try {
-    const imagePath = path.join(process.cwd(), "public/eta/" + filename)
+    const imagePath = path.join(process.cwd(), "eta/" + filename)
     await writeFile(
       imagePath,
       buffer
     )
 
-    return NextResponse.json({ Message: "Success", status: 201, imagePath: `/eta/${filename}` })
+    return NextResponse.json({ Message: "Success", status: 201, imagePath: `eta/${filename}` })
   } catch (e) {
     console.log("Error occured ", e)
     return NextResponse.json({ Message: "Failed", status: 500 })

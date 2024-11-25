@@ -361,7 +361,7 @@ export default function Data () {
                     <div className="space-y-2">
                       <Label>
                         Você é um residente permanente australiano, com um visto que lhe permite retornar à Austrália? <Required/>
-                        <Tip content='Selecione "Sim" se você tiver um visto de residente permanente australiano válido ou um visto de retorno de residente australiano e as condições de viagem do visto que permitem retornar à Austrália. Caso contrário, selecione "Não".' />
+                        <Tip content='Selecione &quot;Sim&quot; se você tiver um visto de residente permanente australiano válido ou um visto de retorno de residente australiano e as condições de viagem do visto que permitem retornar à Austrália. Caso contrário, selecione &quot;Não&quot;.' />
                       </Label>
                       <div className="mt-2">
                         <RadioGroup
@@ -380,7 +380,7 @@ export default function Data () {
                                   <p className="font-bold text-xl text-red-500">ATENÇÃO!</p>
                                   <AlertDialogTitle>Você tem certeza?</AlertDialogTitle>
                                   <AlertDialogDescription>
-                                  Ao selecionar esta opção, seu NZeTA será válido apenas para fins de trânsito. Se pretende sair do aeroporto e entrar na Nova Zelândia, você precisa indicar isso agora em sua solicitação de NZeTA. <br />Para modificar sua resposta, escolha a opção &quot;Não&quot;.
+                                    Selecione &quot;Sim&quot; se você tiver um visto de <b>residente permanente australiano</b> válido ou um visto de retorno de <b>residente australiano</b> e as condições de viagem do visto que permitem retornar à Austrália. <b>Caso contrário, selecione &quot;Não&quot;</b>.
                                   </AlertDialogDescription>
                                 </AlertDialogHeader>
                                 <AlertDialogFooter>
@@ -401,7 +401,7 @@ export default function Data () {
                       {/* Exibir aviso de trânsito */}
                       {returnToAustralia === 'true' && (stayInNZ === 'false' || stayInNZ == null) && (
                         <p className="text-sm text-yellow-600 md:w-1/2">
-                          <WarningDiamond className="size-4 inline" /> Aviso: Se você escolher esta opção, seu NZeTA será válido apenas para trânsito. Se você planeja sair do aeroporto e entrar na Nova Zelândia, deverá indicar isso agora em sua solicitação NZeTA.<br />Para alterar sua resposta, selecione &apos;Não&apos;.
+                          <WarningDiamond className="size-4 inline" /> Aviso: Selecione &quot;Sim&quot; se você tiver um visto de <b>residente permanente australiano</b> válido ou um visto de retorno de <b>residente australiano</b> e as condições de viagem do visto que permitem retornar à Austrália. <b>Caso contrário, selecione &quot;Não&quot;</b>.
                         </p>
                       )}
                     </div>

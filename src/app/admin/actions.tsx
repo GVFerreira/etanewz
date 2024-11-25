@@ -63,7 +63,7 @@ export async function updateStatus(data: {id: string, name: string, statusETA: s
           attachments: [
             {
               filename: visa.attachmentPath?.split('/').pop(),
-              path: `${process.env.NEXT_PUBLIC_APP_URL}${visa.attachmentPath}`
+              path: `${process.env.NEXT_PUBLIC_APP_URL}/${visa.attachmentPath}`
             }
           ],
           context: {

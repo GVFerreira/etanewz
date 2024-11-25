@@ -41,7 +41,7 @@ public/uploads/*
 uploads/*
 !uploads/.gitkeep
 
-public/eta/*
-!public/eta/.gitkeep
+eta/*
+!eta/.gitkeep
 
 prisma/dev.db

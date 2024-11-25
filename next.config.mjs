@@ -6,6 +6,10 @@ const nextConfig = {
         source: '/uploads/:path*',
         destination: '/api/uploads/:path*', // Redireciona para a rota API
       },
+      {
+        source: '/eta/:path*',
+        destination: '/api/eta/:path*', // Redireciona para a rota API
+      },
     ]
   },
   images: {
