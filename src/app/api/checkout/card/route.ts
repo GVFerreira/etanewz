@@ -61,9 +61,7 @@ export async function POST(req: Request) {
     quantity
   } = await req.json()
 
-  function formatTel(numberTel: string) { 
-    return numberTel.replace(/\D/g, '').slice(0, 11) 
-  }
+  function formatTel(numberTel: string) { return numberTel.replace(/\D/g, '').slice(0, 11) } 
 
   function separateInstallmentsAndValues(inputForm: string) {
     let stringOriginal = inputForm
@@ -109,7 +107,7 @@ export async function POST(req: Request) {
             "sku": "835103",
             "name": "Assessoria - NZeTA Nova Zelândia",
             "qty": quantity,
-            "price": pricePerVisa,
+            "price": pricePerVisa(),
             "digital_product": 1
           }],
           "customer_id": client.data.id
@@ -198,8 +196,8 @@ export async function POST(req: Request) {
                 body: JSON.stringify({
                   email: visa.email,
                   bcc: 'contato@etanz.com.br',
-                  subject: 'Pagamento negado',
-                  template: 'pagamento-negado',
+                  subject: 'Pagamento Recusado',
+                  template: 'pagamento-recusado',
                   context: {
                     codeETA: visa.codeETA,
                     paymentId: payment?.id

@@ -39,6 +39,10 @@ export default function Home() {
                 <p>A NZeTA é obrigatória para <b>brasileiros e estrangeiros elegíveis</b> à obtenção da Autorização Eletrônica de Viagem, que estão viajando a passeio, para estudos (com duração máxima de 3 meses) ou para negócios. A NZeTA é válida por até dois anos ou até que o passaporte do viajante expire, o que ocorrer primeiro.</p>
               </div>
               <div>
+                <h2 className="text-3xl font-bold mb-2">Eu preciso do NZeTa se vou apenas fazer conexão ou escala de voo na Nova Zelândia?</h2>
+                <p>Sim, mesmo que você não entre no país, o NZeTA é necessário para fazer <b>conexão</b> ou <b>escala de voo</b> na Nova Zelândia</p>
+              </div>
+              <div>
                 <h2 className="text-3xl font-bold mb-2">O que é a IVL e quanto custa?</h2>
                 <p>Caso sua viagem não seja somente de trânsito e você permaneça na Nova Zelândia, precisará pagar também a Taxa Internacional de Turismo e Conservação da Nova Zelândia (IVL). A IVL corresponde a 100 dólares neozelandeses, ou R$ 350,00.</p>
               </div>
@@ -56,7 +60,7 @@ export default function Home() {
         <section className="bg-nzblack text-white">
           <div className="container mx-auto py-16 px-5">
             <h2 className="text-4xl font-bold mb-4 text-center">Passo a Passo</h2>
-            <p className="text-center text-nzgrey mb-12">Ao viajar de avião para a Nova Zelândia, seja a lazer, estudos ou negócios, você deve solicitar uma autorização eletrônica de viagem (NZeTA).<br />Confira abaixo o passo a passo simples para você garantir a sua autorização.</p>
+            <p className="text-center text-nzgrey mb-12">Ao viajar de avião para a Nova Zelândia, seja a lazer, estudos ou negócios, ou até mesmo para <b>conexão</b> ou <b>escala de voo</b>, você deve solicitar uma autorização eletrônica de viagem (NZeTA).<br />Confira abaixo o passo a passo simples para você garantir a sua autorização.</p>
             <div className="space-y-12 md:grid md:grid-cols-3 md:space-y-0 md:text-center md:gap-x-20">
               <div className="flex justify-start items-center gap-6 md:flex-col">
                 <div>

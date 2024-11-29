@@ -53,35 +53,32 @@ export async function POST(req: Request) {
   if (!payment) return NextResponse.json({ message: 'Pagamento não encontrado' }, { status: 404 })
 
   // Verifica o status do pagamento
-  if (payment.status === 'Aprovado') {
-    return NextResponse.json({ message: 'Pagamento já aprovado' }, { status: 200 })
+  if (payment.status === 'Recusado') {
+    return NextResponse.json({ message: 'Pagamento já consta como recusado' }, { status: 200 })
   } else {
-    // Processa o pagamento caso o evento seja de aprovação
-    if (body.event === "OrderApproved" || body.event === "OrderPaidByPix") {
-      const visas = payment?.visas
-      if (visas) {
-        for (const currentVisa of visas) {
-          await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/send-mail`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              email: currentVisa.visas.email,
-              bcc: 'contato@etanz.com.br',
-              subject: 'Pagamento aprovado',
-              template: 'pagamento-aprovado',
-              context: {
-                codeETA: currentVisa.visas.codeETA,
-              }
-            })
+    const visas = payment?.visas
+    if (visas) {
+      for (const currentVisa of visas) {
+        await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/send-mail`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: currentVisa.visas.email,
+            bcc: 'contato@etanz.com.br',
+            subject: 'Pagamento recusado',
+            template: 'pagamento-recusado',
+            context: {
+              codeETA: currentVisa.visas.codeETA,
+            }
           })
-        }
+        })
       }
-
-      await updatePayment({
-        id: payment.id,
-        status: "Aprovado",
-      })
     }
+
+    await updatePayment({
+      id: payment.id,
+      status: "Recusado",
+    })
 
     return NextResponse.json({ message: 'OK' }, { status: 202 })
   }
