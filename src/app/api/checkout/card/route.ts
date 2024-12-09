@@ -61,6 +61,8 @@ export async function POST(req: Request) {
     quantity
   } = await req.json()
 
+  console.log(visas)
+
   function formatTel(numberTel: string) { return numberTel.replace(/\D/g, '').slice(0, 11) } 
 
   function separateInstallmentsAndValues(inputForm: string) {
@@ -152,8 +154,10 @@ export async function POST(req: Request) {
 
           const dataVisas = await getVisasEmail(visas)
           if (dataVisas) {
+            console.log(dataVisas)
             for (const visa of dataVisas) {
-              await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/send-mail`, {
+              console.log(visa)
+              const response = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/send-mail`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -166,6 +170,8 @@ export async function POST(req: Request) {
                   }
                 })
               })
+              const data = await response.json()
+              console.log(data)
             }
           }
 
@@ -189,8 +195,10 @@ export async function POST(req: Request) {
           const dataVisas = await getVisasEmail(visas)
 
           if (dataVisas) {
+            console.log(dataVisas)
             for (const visa of dataVisas) {
-              await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/send-mail`, {
+              console.log(visa)
+              const response = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/send-mail`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -204,6 +212,8 @@ export async function POST(req: Request) {
                   }
                 })
               })
+              const data = await response.json()
+              console.log(data)
             }
           }
 
