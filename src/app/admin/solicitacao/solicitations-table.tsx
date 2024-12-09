@@ -337,7 +337,7 @@ export default function SolicitationsTable({ visas }: { visas: any[] }) {
                             </div>
                             <hr />
                             <div className="space-y-2">
-                              <Label htmlFor="name">Name</Label>
+                              <Label htmlFor="name">Nome</Label>
                               <Input id="name" value={selectedVisa.name} readOnly />
                             </div>
                             <div className="space-y-2">
@@ -373,7 +373,7 @@ export default function SolicitationsTable({ visas }: { visas: any[] }) {
                             {selectedVisa?.hadOtherName && selectedVisa?.otherName && (
                               <div>
                                 <Label htmlFor="user_othername">Insira seu outro nome completo</Label>
-                                <Input type="text" id="user_othername" className="md:w-1/2" readOnly/>
+                                <Input type="text" id="user_othername" className="md:w-1/2" value={selectedVisa.otherName} readOnly/>
                               </div>
                             )}
                             

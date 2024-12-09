@@ -72,12 +72,15 @@ export default function Data () {
   const router = useRouter()
   const { register, handleSubmit, setValue, formState } = useForm<FormData>()
 
-  setValue('passportNationality', 'Brasil')
-  setValue('passportIssuer', 'Brasil')
-  setValue('countryBirth', 'Brasil')
+  useEffect(() => {
+    setValue('passportNationality', 'Brasil')
+    setValue('passportIssuer', 'Brasil')
+    setValue('countryBirth', 'Brasil')
+  }, [setValue])
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     try {
+      console.log(data.passportNationality, data.passportIssuer, data.countryBirth)
       const visa: any = await createVisa({
         ...data,
         gender,
@@ -153,7 +156,10 @@ export default function Data () {
     debounce(() => setSecondEmail(email), 500)
   }
 
-  const handleNationalityChange = (selectedOption: any) => setValue('passportNationality', selectedOption.value)
+  const handleNationalityChange = (selectedOption: any) => {
+    console.log(selectedOption.value)
+    setValue('passportNationality', selectedOption.value)
+  }
 
   const handleIssuerChange = (selectedOption: any) => setValue('passportIssuer', selectedOption.value)
 
@@ -172,7 +178,7 @@ export default function Data () {
   
   const handleRadioBeenConvicted = (value: string) => setBeenConvicted(value === "true")
 
-  const handleRadioBeenDeported = (value: string) => setBeenDeported(value === "true")
+  const handleRadioBeenDeported = (value: string) => setBeenDeported(value === "1")
 
   const handleRadioConvictedMoreThanFive = (value: string) => setConvictedMoreThanFive(value === "true")
 

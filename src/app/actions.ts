@@ -14,7 +14,7 @@ export async function createVisa(data: any) {
         passportExpiration: new Date(data.passportExpiration),
         hadOtherName: Boolean(data.hadOtherName),
         dateBirth: new Date(data.dateBirth),
-        returnToAustralia: Boolean(data.returnToAustralia),
+        returnToAustralia: data.returnToAustralia === "true",
         stayInNZ: data.stayInNZ === "true",
         medicalTreatment: Boolean(data.medicalTreatment),
         beenDeported: Boolean(data.beenDeported),
